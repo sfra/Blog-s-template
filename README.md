@@ -5,7 +5,7 @@ The main intention of this project is to provide full solution with the minimal 
 libraries.
 
 ## (Almost) Working example
-[https://frankyy.000webhostapp.com/blog/](blog)
+[blog](https://frankyy.000webhostapp.com/blog/)
 
 login: githubuser
 
@@ -16,3 +16,5 @@ password: githubuser
 [phpcaptcha.org](https://www.phpcaptcha.org)
 
 [Mail](https://pear.php.net/package/Mail)
+
+[TinyMCE](https://github.com/tinymce/tinymce)
