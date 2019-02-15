@@ -1,0 +1,59 @@
+@import 'partials/variables';
+#main-menu-button, .noselect  {
+    display: none;
+}
+
+
+
+
+
+nav#menu, nav#menu.hidden {
+    opacity: 1;
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    width: 100vw;
+    height: 50px;
+    float: right;
+    margin-right: 0px;
+    text-align: right;
+    transition: none;
+    
+    &>ul {
+        height: 50px;
+        width: 100%;
+        transition: none;
+        animation: none;
+        margin-top: 20px;
+        &>li {
+
+            width: 20%;
+            display: bblock;
+            height: 50px;
+            float: left;
+            transition: none;
+            animation: none;
+            transition: all .5s ease-out;
+            &> a {
+                margin-top: 0px;
+                font-size: 10px;
+                width: 100%;
+                transform: none;
+                height: 30px;
+                line-height: 30px;
+
+            }
+            
+            
+            &:hover {
+                    transition: all .5s ease-in;
+                &>a {
+                    background: rgba($colorInv,0);
+                    color: rgba(251, 251, 251, 0.8);
+                    transition: all .5s ease-in;
+                }
+            }
+            
+        }
+    }
+}

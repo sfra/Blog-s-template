@@ -1,0 +1,26 @@
+{
+  "name": "mexico",
+  "description": "web site blog",
+  "main": "index.php",
+  "authors": [
+    "sz.frankyy"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "blog",
+    "food",
+    "mexico"
+  ],
+  "homepage": "https://frankyy.000webhostapp.com/template2/template2/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "modernizr": "^3.6.0"
+  }
+}

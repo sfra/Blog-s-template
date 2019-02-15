@@ -1,0 +1,7 @@
+1) Run the script 02.mysql in mysql terminal.
+2) Fill the file ../config/mexico.json according to your settings.
+3) Set the language in the file config/mexico.json (english in the provided file)
+4) Edit translations/[[yourlanguage]].json file.
+5) Put logo.png file (140x133) in images folder
+6) run 'npm run prod' in the main folder
+7) change anything you want (images). For example the file images/categories.jpg show have dimension 4000x600 pixels

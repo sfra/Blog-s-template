@@ -1,0 +1,36 @@
+#ErrorDocument 404 /mexico/template/error.php
+
+DirectoryIndex index.php index.html index.htm
+
+#ErrorDocument 404 http://localhost/mexico/template/error.php
+ErrorDocument 404   /mexico/template/error.php
+#php_flag display_startup_errors on
+#php_flag display_errors on
+#php_flag html_errors on
+#php_flag  log_errors on
+#php_value error_log  /var/www/html/mexico/template/logs/php_errors.log
+#php_flag log_errors On
+#php_value error_log /var/www/html/mexico/template/logs/php_errors.log
+#php_value post_max_size 30M
+#php_value upload_max_filesize 3M
+<IfModule mod_headers.c>
+  <FilesMatch ".(js|css|xml|gz|html)$">
+    Header append Vary: Accept-Encoding
+  </FilesMatch>
+</IfModule>
+
+
+# One month for most static assets
+<filesMatch ".(css|jpg|jpeg|png|gif|js|ico)$">
+Header set Cache-Control "max-age=2628000, public"
+</filesMatch>
+#php_value include_path  ".:/home/szymon/usrRoot/usr/bin/pear/share/pear"
+
+RewriteEngine On 
+RewriteCond %{SERVER_PORT} 80 
+#RewriteRule ^(.*)$ https://localhost/$1 [R,L]
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+
+#RewriteCond %{HTTPS} off
+

@@ -1,0 +1,167 @@
+@import '../partials/login';
+
+@media(max-width:480px) {
+
+    input,
+    hr,
+    #login-button {
+        transform: translateX(-100px);
+    }
+
+    footer {
+        transform: translateY(-20px);
+    }
+
+    .back {
+        transform: translateX(-20px);
+    }
+
+    nav#menu>.links>li:not(#login-button) {
+        width: 80%;
+    }
+
+    #header {
+        width: 95%;
+    }
+}
+
+body {
+    height: 100vh;
+
+    &.ff {
+        input {
+            left: -35px;
+        }
+    }
+
+}
+
+#wrapper-0 {
+    width: 100vw;
+    height: 100vh;
+}
+
+nav#menu {
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    margin: 0px;
+    background: rgba(51, 51, 51, 0.5);
+
+    &>ul.links {
+        height: 100%;
+        margin-top: 80px;
+
+        &>li {
+
+            &:nth-child(1)>hr:nth-child(1) {
+                top: 110px;
+                left: 170px;
+                transition: all 1s linear;
+                transition-delay: .65s;
+            }
+
+            &:nth-child(1)>hr:nth-child(3) {
+                top: 142px;
+                left: 170px;
+                transition: all 1s linear;
+                transition-delay: .6s;
+
+            }
+
+            &:nth-child(2)>hr:nth-child(1) {
+                top: 230px;
+                left: 170px;
+                transition: all 1s linear;
+                transition-delay: .65s;
+
+            }
+
+            &:nth-child(2)>hr:nth-child(3) {
+                top: 262px;
+                left: 170px;
+
+                transition: all 1s linear;
+                transition-delay: .6s;
+
+            }
+
+            hr {
+                opacity: 1;
+            }
+
+            &>input {
+                margin-top: 10px;
+                float: left;
+                position: relative;
+
+
+            }
+        }
+    }
+
+
+    &>ul.links.deactivated {
+
+        &>li {
+
+            &:nth-child(1)>hr:nth-child(1) {
+                top: 110px;
+                left: -200px;
+            }
+
+            &:nth-child(1)>hr:nth-child(3) {
+                top: 142px;
+                transform: translateX(1000px);
+
+            }
+
+            &:nth-child(2)>hr:nth-child(1) {
+                top: 230px;
+                left: -200px;
+
+            }
+
+            &:nth-child(2)>hr:nth-child(3) {
+                top: 262px;
+                transform: translateX(1000px);
+
+            }
+
+            &>input {
+                margin-top: 10px;
+                float: left;
+
+            }
+
+            hr {
+                opacity: 0;
+            }
+        }
+    }
+
+}
+
+hr {
+    position: absolute;
+    width: 188px;
+}
+
+nav.back {
+    z-index: 700;
+    //    > a {
+    //        z-index: 700;
+    //    }
+}
+
+
+#header {
+    z-index: 400;
+}
+
+footer {
+    margin-top: 40px;
+    bottom: 0px;
+}
+
+@import "../partials/loader";

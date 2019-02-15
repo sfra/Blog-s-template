@@ -1,0 +1,256 @@
+@import '../scss/partials/classes';
+@import '../scss/partials/variables';
+@import '../scss/partials/input';
+@import '../scss/partials/mixins';
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    background: #a1a1a1;
+}
+
+#wrapper-0 {
+    height: 100vh;
+
+    .post-data {
+        clear: both;
+        float: left;
+    }
+
+    p {
+        width: 150px;
+        font-size: 15px;
+        text-align: center;
+        outline: 1px solid #ffffff;
+        background: #fafafa;
+        padding: 3px;
+        margin: 0px 50px 20px;
+        color: #000000;
+
+        box-shadow: 5px 5px 15px 5px #000000;
+
+        &.title {
+            width: 200px;
+            color: rgba(200, 200, 200, .7);
+            background-color: rgba(0, 0, 0, 1);
+            box-shadow: none;
+        }
+    }
+    
+
+
+    button.button {
+        position: relative;
+        left: -360px;
+        top: -50px;
+        float: left;
+        &#save {
+            position: absolute;
+            left: 70px;
+            top: 50px;
+        }
+
+        @include submit();
+        margin: 0px 2px 0px 0px;
+    }
+
+    >input {}
+}
+
+*[name=tags] {
+    width: 500px;
+}
+#editor {
+    margin-top: 150px;
+}
+
+
+#uploaded-files {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: rgba(10, 10, 10, .7);
+    z-index: 600;
+
+    &.hidden {
+        display: none;
+    }
+
+
+
+
+    &>*>img.close {
+
+
+        //        position: absolute;
+        width: 20px;
+        height: 20px;
+        float: right;
+        position: relative;
+        left: -40px;
+        //        left: 200px;
+        //        transform: translateX(140px);
+
+        //left: 100px;
+
+    }
+
+    &>img.close {
+        position: absolute;
+        left: 94vw;
+        top: 10px;
+    }
+
+
+    div {
+        float: left;
+        margin-top: 20px;
+
+        img {
+            max-width: 160px;
+            margin: 10px;
+        }
+
+
+
+    }
+
+    .title {
+        position: relative;
+        z-index: 20;
+        left: 150px;
+        top: 100px;
+        color: #ffffff;
+        background: rgba(0, 0, 0, .7);
+    }
+}
+
+
+.save {
+    position: relative;
+    left: 100px;
+    top: -20px;
+    @include submit();
+}
+
+#contextMenu {
+    position: absolute;
+    z-index: 200;
+    background-color: $color1;
+    color: #ffffff;
+    cursor: pointer;
+    height: 40px;
+    width: 300px;
+    line-height: 40px;
+    text-align: center;
+
+    //transform: translateX(-100px);
+    &.visible {
+        transition: all 1s ease-in;
+        background-color: lighten($color1, 20%);
+    }
+
+    &.clicked {
+        transition: all .1s ease-in;
+        background-color: lighten($color1, 60%);
+    }
+
+
+}
+
+#imgs-list {
+    font-size: 12px;
+  
+    left: 100px;
+    top:20px;
+    @include submit();
+
+   
+
+
+}
+
+
+ span {
+    position: relative;
+    display: inline-block;
+
+    &:nth-child(2) {
+      left: 50%;
+    }
+  }
+
+
+#back {
+    button.button {
+        position: absolute;
+        left: 10px;
+        top:50px;
+    }
+ 
+}
+
+
+
+
+@media(max-width: 880px) {
+
+    .post-data {
+ 
+
+        > * {
+          position: relative;
+          display: block;
+          clear: both;
+          left: 0px;
+          margin-bottom: 10px;
+            width: 100%;
+            
+        }
+      
+       
+      }
+
+      #send-image {
+        position: relative;
+        top: 50px;
+        left: -10px;
+        .save {
+            position: relative;
+            left: 90px;
+            width: 100px;
+        }
+        
+    }
+    #imgs-list {
+        position: relative;
+        top:40px;
+        width: 100px;
+        left: 80px;
+    }
+      #editor {
+          position: relative;
+          top: 80px;
+          
+      }
+
+      #shorter {
+          position: relative;
+          left: 100px;
+          height: 100px;
+      }
+}
+
+
+@media(max-width: 600px) {
+    .save {
+        left: 40px;
+        top: 10px;
+    }
+    
+    #imgs-list {
+        top:70px;
+       // left: 50px;
+    }
+}

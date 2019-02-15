@@ -1,0 +1,79 @@
+//@import "compass/css3";
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300,800);
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+
+}
+
+#shorter {
+  width: 300px;
+}
+
+select {
+  padding: 10px 15px;
+  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+  transition: all .3s ease-in-out;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  overflow: hidden;
+
+
+}
+
+#save {
+  padding: 10px 15px;
+  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+  transition: all .3s ease-in-out;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  top: -80px;
+
+  float: right;
+}
+
+.row {
+  position: relative;
+  top: -130px;
+  left: -40px;
+  max-width: 800px;
+  width: 30%;
+  margin: 0 auto;
+  float: left;
+  padding: 6px 30px;
+  background: #a1a1a1;
+
+  text-align: center;
+  height: 50px;
+
+  span {
+    position: relative;
+    display: inline-block;
+
+  }
+}
+
+.slide-up {
+  display: inline-block;
+  width: 30%;
+  padding: 10px 0 10px 5px;
+  font-family: "Open Sans", sans;
+  font-weight: 400;
+  color: #000000;
+  background: #efefef;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  transition: all .3s ease-in-out;
+
+}

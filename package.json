@@ -1,0 +1,46 @@
+{
+  "name": "mexico",
+  "version": "1.0.0",
+  "description": "web site blog",
+  "main": "index.php",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clear.cache": "rm -f cache/*",
+    "prod": "npm run clear.cache; bash bin/prod.sh",
+    "prepare": "bash bin/prod.prepare.sh",
+    "prod.prepare": "npm run prod; npm run prepare",
+    "run": "bash bin/run.min.sh",
+    "run.js": "node bin/run.min.js",
+    "phperrs": "node bin/getPhpErrors/getPhpErrors.js -log logs/php_errors.log",
+    "change.env": "node bin/change.env.js",
+     "commertial" : "rsync -av --exclude='.*' --exclude='babel.config.js' --exclude='apple-touch-icon.png' --exclude='bin' --exclude='nbproject' --exclude='node_modules' --exclude='run.sh' ../template ../../mexico2/forrest/",
+      "run-unsafe": "chromium-browser --user-data-dir=/home/szymon/tmp/ --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost/mexico/template --new-window https://localhost/mexico/template "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/mlaskacz/mexico3.git"
+  },
+  "keywords": [
+    "blog",
+    "food",
+    "mexico"
+  ],
+  "author": "sz.frankyy",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/mlaskacz/mexico3#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-transform-classes": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
+    "babel-polyfill": "^6.26.0",
+    "dynamic-polyfill": "^1.1.0",
+    "smoothscroll-polyfill": "^0.4.3"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0"
+  }
+}

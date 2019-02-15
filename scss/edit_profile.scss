@@ -1,0 +1,194 @@
+@import '../scss/partials/mixins';
+
+html {
+  height: auto;
+
+}
+
+
+body {
+
+  width: 100vw;
+  height: 1100px;
+
+
+  #header {
+    .greetings {
+      top: 40px;
+    }
+  }
+
+  #wrapper-0 {
+    height: 1200px;
+    overflow: hidden;
+    width: 100vw;
+
+    #header {
+      left: -5px;
+    }
+
+    #introduction {
+      position: absolute;
+      top: 130px;
+      left: 50px;
+      width: 80%;
+      font-size: 12px;
+      background: rgba(22, 22, 22, .7);
+      height: 30px;
+      line-height: 30px;
+      padding: 10px;
+
+      @media(max-width: 550px) {
+        height: 60px;
+      }
+
+      &>div {
+        width: 50%;
+      }
+    }
+
+    #content {
+      position: relative;
+      top: 200px;
+      left: 30px;
+      @import 'partials/form';
+
+      @media(max-width: 700px) {
+        label {
+          display: block;
+          clear: both;
+          position: relative;
+          top: -20px;
+          left: 20px;
+          //  float: right;
+        }
+      }
+
+      select {
+        //        padding-left: 40%;
+        text-align: right;
+      }
+
+      input,
+      select {
+        position: relative;
+        margin: 20px;
+        width: 300px;
+        height: 30px;
+        background: rgba(0, 0, 0, 0);
+        border: none;
+        border-bottom: #ffffff solid 2px;
+        border-top: #ffffff solid 2px;
+        transition: all 1s ease-out;
+        padding-right: 0;
+
+        @media(max-width: 700px) {
+          width: 100px;
+
+          &:not(#main-submit):not(#unblock-submit):not(#send-button) {
+            width: 60%;
+            margin: 10px auto 30px;
+            top: 70px;
+          }
+        }
+
+        &#unlock-submit {
+          float: right;
+          position: absolute;
+          width: 90px;
+          left: 228px;
+
+          &[name=foto] {
+            margin-top: -50px;
+          }
+
+          &[name=photo-button] {
+            margin-top: -12px;
+          }
+        }
+      }
+
+      #unblock-submit {
+        position: absolute;
+        top: -80px;
+        left: 250px;
+        z-index: 400;
+        width: 100px;
+      }
+
+      #main-submit {
+        width: 100px;
+        position: absolute;
+        left: 250px;
+        transform: translateY(-20px);
+        z-index: 600;
+      }
+
+      form {
+
+        &.blocked button,
+        &.blocked input:not(#unblock-submit),
+        &.blocked select {
+          opacity: 0.2;
+          color: rgba(222, 222, 222, .7);
+          transition: all 1s ease-out;
+          position: relative;
+        }
+
+        input:not([type=submit]) {
+          top: 70px;
+          transform: translateY(-70px);
+        }
+
+        #send-button {
+          position: absolute;
+          transition: none;
+          width: 60px;
+          padding-left: 5px;
+          padding-right: 5px;
+          top: 480px;
+          left: 250px;
+          height: 34px;
+
+
+          @media(max-width: 700px) {
+            top: 536px;
+            transform: translate(0px, 36px);
+          
+          }
+        }
+      }
+
+      select {
+        width: 300px;
+        color: #ffffff;
+        text-align: right;
+        top: 70px;
+        transform: translateY(-70px);
+
+        option {
+          background-color: lighten(#333, 20%);
+
+          &:hover {
+            background-color: 4(#333, 50%);
+          }
+        }
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+  }
+}
+
+
+.modal-window {
+  @include modalWindow();
+}
+
+footer {
+  bottom: 0;
+  width: 100vw;
+  top: -80px;
+}

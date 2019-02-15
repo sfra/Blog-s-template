@@ -1,0 +1,22 @@
+{
+  "short_name": "Blog",
+  "name": "Programmer's blog",
+  "icons": [
+    {
+      "src": "images/icons/favicon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/icons/favicon512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  
+  "start_url": "/?utm_source=a2hs",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "scope": ".",
+  "theme_color": "#AFAFAF"
+}

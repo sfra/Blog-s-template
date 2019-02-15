@@ -1,0 +1,50 @@
+
+    
+
+
+
+body {
+    #introduction {
+        transition: all 1s ease-in;
+        position: absolute;
+        top: 100px;
+        right: 0px;
+    
+        width: 400px;
+        height: 500px;
+        font-size: 30px;
+        z-index: 30;
+        article {
+            height: 400px;
+        }
+    }
+    
+    #header > .greetings {
+        height: 100px;
+    }
+
+
+    
+    
+     #background-wrapper.inactive  ~ #introduction {
+    
+        filter: grayscale(1) sepia(60%);
+        opacity: 0;
+        transition: all 1s linear;
+        
+        div:nth-child(1) {
+            transform: translateY(-1000px);
+            transition: all 1s linear; 
+            
+        };        
+        
+        div:nth-child(2) {
+      //      transform: skewX(-90deg);
+            transition: all .5s linear; 
+        };
+    
+        
+    
+    }
+}
+    

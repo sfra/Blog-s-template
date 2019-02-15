@@ -1,0 +1,14 @@
+body {
+
+  #wrapper-0,
+  #wrapper-1 {
+    background-color: #000000;
+  }
+}
+
+#wrapper-0 {
+  height: 100vh;
+}
+
+
+@import 'moveViewport/style.scss';
