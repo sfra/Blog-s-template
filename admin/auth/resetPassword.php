@@ -97,6 +97,9 @@
                       'Content-type' => 'text/html;charset=utf8'
                 );
               
+
+
+
                 $smtp = Mail::factory('smtp',array (
                                 'host' => 'ssl://smtp.googlemail.com',
                                 'port' => '465',
