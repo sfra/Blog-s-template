@@ -1,27 +1,37 @@
 <?php
 namespace admin\auth\functions {
-    
+
     require_once "Mail.php";
-    
-  //  $configJSON = json_decode(file_get_contents('../../config/mexico.json'), true); 
+
+  //  $configJSON = json_decode(file_get_contents('../../config/mexico.json'), true);
     require_once $configJSON["password_path"];
 
-    
+
     function sendMail($email, $subject, $body) {
-        global $configJSON;
-        global $gmail;
-        $to = "Recipent <" . $email . ">";
+      $mail = new PHPMailer;
+      $mail->isSMTP();
+      //Enable SMTP debugging
+      // 0 = off (for production use)
+      // 1 = client messages
+      // 2 = client and server messages
+      $mail->SMTPDebug = 0;
+      $mail->Host = 'smtp.poczta.onet.pl';
+      $mail->Port = 465;
+      $mail->SMTPSecure = 'ssl';
+      $mail->SMTPAuth = true;
+      $mail->Username = "mlaskacz@onet.eu";
+      $mail->Password = 'CJAmili((&997';
+      $mail->setFrom('mlaskacz@onet.eu', 'First Last');
+      $mail->addReplyTo('mlaskacz@onet.eu', 'First Last');
+      $mail->addAddress('janusz.software@wp.pl', 'John Doe');
+      $mail->Subject = 'Blog programistyczny';
 
-        $headers = array(
-            'From' => 'aktywnastronameksyku <sz.frankyy@gmail.com>',
-            'To' => $to,
-            'Subject' => $subject,
-            'MIME-Version' => 1,
-            'Content-type' => 'text/html;charset=utf8',
-        );
 
 
-
+      if (!$mail->send()) {
+          echo "Mailer Error: " . $mail->ErrorInfo;
+      } else {
+//          echo "[OK]";
 
         $smtp = \Mail::factory('smtp', array(
             'host' => 'ssl://smtp.googlemail.com',
@@ -35,10 +45,6 @@ namespace admin\auth\functions {
 
         if (\PEAR::isError($mail)) {
 
-            echo (" <p>" . $mail->getMessage() . " </p ");
-        } else {
-//            echo ("[OK]");
-        }
 
     }
 
