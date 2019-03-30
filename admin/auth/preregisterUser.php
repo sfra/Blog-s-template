@@ -1,25 +1,36 @@
 <?php
 
 
-set_include_path ('/home/szymon/usrRoot/usr/bin/pear/share/pear') ;
+#set_include_path ('/home/szymon/usrRoot/usr/bin/pear/share/pear') ;
 
-error_reporting(E_ERROR);
+error_reporting(E_ALL);
     $configJSON = json_decode(file_get_contents('../../../config/mexico.json'), true);
 
-    $translations = json_decode(file_get_contents("../../translations/{$configJSON["language"]}.json"),true);
 
 
-    require_once "Mail.php";
+
+   $translations = json_decode(file_get_contents(
+
+'/'
+
+
+
+   ),true);
+
+
+
 
     require_once "functions.php";
     require_once "salting.php";
 
 
+include_once $configJSON['password_path'];
+
+
+//    include_once('/home/szymon/pass/02.php');
 
 
 
-
-    include_once $configJSON['password_path'];
 
 
 
@@ -105,12 +116,14 @@ error_reporting(E_ERROR);
             if ($ok) {
 
                 $body = file_get_contents("mail.template.php");
+ 
                 $body = preg_replace("{{content}}", $translations["mail-body"], $body);
-
-
 
                 $body = preg_replace("{{login}}",$login,$body);
                 $body = preg_replace("{{link}}", $registerLink,$body);
+                echo '$body';
+                echo $body;
+
                 admin\auth\functions\sendMail(urldecode($email),$translations["register-subject"],$body);
 
                 echo "[OK]";

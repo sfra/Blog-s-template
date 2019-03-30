@@ -319,6 +319,7 @@ register.preregisterUser = () => {
     password: encodeURIComponent($password0.value),
     email: encodeURIComponent($email0.value)
   });
+
   $loader.classList.remove('hidden');
   document.body.classList.add('misted');
   ajax.get().then((data) => {

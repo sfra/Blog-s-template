@@ -1,13 +1,25 @@
 <?php
 namespace admin\auth\functions {
 
-    require_once "Mail.php";
+//    require_once "Mail.php";
+//    echo __DIR__."/../vendor/autoload.php";
+//    require __DIR__."/../vendor/autoload.php";
+ 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    require realpath(__DIR__.'/../vendor/phpmailer/phpmailer/src/Exception.php');
+    require realpath(__DIR__.'/../vendor/phpmailer/phpmailer/src/PHPMailer.php');
+    require realpath(__DIR__.'/../vendor/phpmailer/phpmailer/src/SMTP.php');
 
-  //  $configJSON = json_decode(file_get_contents('../../config/mexico.json'), true);
+    
+
+
     require_once $configJSON["password_path"];
 
 
     function sendMail($email, $subject, $body) {
+        // echo realpath(__DIR__."/../vendor/autoload.php");
+        // exit();
       $mail = new PHPMailer;
       $mail->isSMTP();
       //Enable SMTP debugging
@@ -28,24 +40,30 @@ namespace admin\auth\functions {
 
 
 
+      $mail->isHTML(true);                                  // Set email format to HTML
+      $mail->Subject = 'Here is the subject';
+      $mail->Body    = $body;
+      $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+  
+
+
+
+
+
+      
+     $mail->addCC('cc@example.com');
+      $mail->addBCC('bcc@example.com');
+  
+
+  
+
+
+
+
+
+
       if (!$mail->send()) {
           echo "Mailer Error: " . $mail->ErrorInfo;
-      } else {
-//          echo "[OK]";
-
-        $smtp = \Mail::factory('smtp', array(
-            'host' => 'ssl://smtp.googlemail.com',
-            'port' => '465',
-            'auth' => true,
-            'username' => 'sz.frankyy',
-            'password' => $gmail
-        ));
-
-        $mail = $smtp->send($to, $headers, $body);
-
-        if (\PEAR::isError($mail)) {
-
-
-    }
-
+      };
 };
+}

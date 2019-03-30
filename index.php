@@ -2,25 +2,25 @@
 
     $configJSON = json_decode(file_get_contents('../config/mexico.json'), true);
     $translations = json_decode(file_get_contents("translations/".json_decode(file_get_contents("config/mexico.json"),true)["language"].".json"),true);
-    
-
-    
 
 
 
-    
+
+
+
+
     include_once 'components/helpers/html.php';
     session_start();
 
 
     $min='';
     $main='';
-    
+
     if ($configJSON['env']==='prod') {
         $min='.min';
         $main='.main';
     };
-    
+
 
      $isSetLogin = isset($_SESSION['login']);
 
@@ -35,14 +35,14 @@
       include_once 'cashing/top-cache.php';
   }
 
-   
+
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
     } else {
         $page = 'index';
     };
 
-    
+
     if ($page==='blog' || $page==='contacts') {
         $page='index';
     };
@@ -65,7 +65,7 @@
     <?php include_once "components/head.php" ?>
     <?php
         include_once "components/$page/head.php";
-        include_once "components/$page/headsa.php";
+//        include_once "components/$page/headsa.php";
     ?>
 </head>
 
@@ -82,28 +82,28 @@
         include_once "components/$page/introduction.php";
         include_once "components/$page/content.php";
         include_once "components/$page/menu.php";
-        
+
 
 
         ?>
     </div>
     <?php
-        
+
         if ($page==='index') {
             echo <<<WR
         <div id="wrapper-1" ></div>
         <div id="wrapper-2" ></div>
-        <div id="wrapper-3" ></div>          
+        <div id="wrapper-3" ></div>
 WR;
         };
-        
+
     ?>
 
 
 
 <footer>
-   webpage: 
-    <a target="_blank" rel="noopener" href="https://github.com/sfra">&copy; Szymon Frankowski 2018</a> 
+   webpage:
+    <a target="_blank" rel="noopener" href="https://github.com/sfra">&copy; Szymon Frankowski 2018</a>
             <?php
         if ($page!=='login') {
             include_once 'components/index/navigation.php';
@@ -126,7 +126,7 @@ WR;
 
 
 
-    
+
     <script src="scripts/components/<?=$page ?><?= $min?>.js"></script>
 </body>
 
@@ -134,9 +134,9 @@ WR;
 
 
 
-        
 
-  
+
+
 
 <?php
  if ($configJSON['env'] !== 'dev' && !isset($_GET['login'])) {
