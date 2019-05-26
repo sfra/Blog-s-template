@@ -287,7 +287,6 @@ window.onload = () => {
       document.querySelector('#wrapper-' + nr).scrollIntoView({
         behavior: behavior
       });
-      //            if(nr===oldWrapperNr) return;
 
       if (viewPort.width() < 700) {
         index.closeMenu();
@@ -295,12 +294,10 @@ window.onload = () => {
 
       index.rearangeAfterMove(nr, byScrolling);
 
-
-
     }, 500);
 
 
-
+    
 
     state.wrapperNr = nr;
 
@@ -535,6 +532,13 @@ index.handleScrollSmall = () => {
 };
 
 index.rearangeAfterMove = (nr, byScrolling) => {
+
+
+  if(navigator.userAgent.match('Chrome') && viewPort.width()>700 && nr===2){
+    window.scrollBy(60,0);
+  }
+
+
   $header.parentNode.removeChild($header);
 
   $wrappersAr[nr].insertBefore($header, $wrappersAr[nr].firstChild);
