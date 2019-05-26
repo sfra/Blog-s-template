@@ -53,7 +53,7 @@ window.onload = () => {
   // ) {
   //   window.location.href = window.location.href.replace('http:', 'https:');
   // }
-
+ 
 
   functions.setServiceWorker();
 
@@ -314,6 +314,9 @@ window.onload = () => {
 
   };
 
+
+  index.moveViewportToWrapper(0);
+
   $contacts.addEventListener('click', (e) => {
     e.preventDefault();
     index.moveViewportToWrapper(3);
@@ -325,6 +328,8 @@ window.onload = () => {
     e.preventDefault();
   }, false);
 };
+
+
 
 
 function checkWrapper() {
@@ -538,6 +543,9 @@ index.rearangeAfterMove = (nr, byScrolling) => {
     window.scrollBy(60,0);
   }
 
+  if(navigator.userAgent.match('Chrome') && viewPort.width()>700 && nr===0){
+    window.scrollTo(0,0);
+  }
 
   $header.parentNode.removeChild($header);
 
