@@ -8,6 +8,9 @@ $configJSON = json_decode($config, true);
 $operation = escapeshellcmd($_GET['operation']);
 
 
+
+
+
 if ($operation==='getphoto') {
     session_start();
 
@@ -36,6 +39,10 @@ if ($operation==='getphoto') {
 $target_dir = $configJSON['root'].$operation.'/uploads/';
 
 if($operation==='edit' && isset($_GET['exec']) && $_GET['exec']==='readdir') {
+    
+
+  
+
     $dir = opendir($target_dir);
     $dirList = array();
     while(  ($file=readdir($dir))!==false ) {
