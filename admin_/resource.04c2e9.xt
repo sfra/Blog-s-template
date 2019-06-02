@@ -1,0 +1,18 @@
+TRACE START [2018-11-12 19:31:00]
+    0.0558     460992       -> preg_replace_callback() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0559     461448         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0559     461520         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0559     461768         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0559     461760         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0560     462216         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0560     462208         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0560     462200         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0560     462208         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0561     462224         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0561     462224         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0561     464000         -> Resource->{closure:/var/www/html/mexico/template/admin/classes/Resource.php:57-62}() /var/www/html/mexico/template/admin/classes/Resource.php:62
+    0.0561     464136       -> mysqli_result->fetch_assoc() /var/www/html/mexico/template/admin/classes/Resource.php:53
+    0.0562     458936     -> print_r() /var/www/html/mexico/template/admin/runResource.php:24
+    0.0563     320936
+TRACE END   [2018-11-12 19:31:00]
+
