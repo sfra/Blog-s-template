@@ -1,72 +1,42 @@
-<?php
-
-    $configJSON = json_decode(file_get_contents('../config/mexico.json'), true);
-    $translations = json_decode(file_get_contents("translations/".json_decode(file_get_contents("config/mexico.json"),true)["language"].".json"),true);
-
-
-
-
-
-
-
-    include_once 'components/helpers/html.php';
+<?php 
     session_start();
-
-
-    $min='';
-    $main='';
-
-    if ($configJSON['env']==='prod') {
-        $min='.min';
-        $main='.main';
-    };
-
-
-     $isSetLogin = isset($_SESSION['login']);
-
-    if (!$isSetLogin) {
-        if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', time()-42000, '/');
+    $isSetLogin = false;
+    if(isset($_SESSION['login'])) {
+        $isSetLogin=true;
+    } else {
+        if (isset($_COOKIE[session_name()])) { 
+        setcookie(session_name(), '', time()-42000, '/'); 
         }
         session_destroy();
     };
 
-  if ($configJSON['env']!=='dev' && !isset($_GET['login'])) {
-      include_once 'cashing/top-cache.php';
-  }
-
-
-    if (isset($_GET['page'])) {
+    if(isset($_GET['page'])) {
         $page = $_GET['page'];
     } else {
         $page = 'index';
     };
 
-
-    if ($page==='blog' || $page==='contacts') {
+    
+    if($page==='blog') {
         $page='index';
     };
 
-    if ($page==='edit_profile' && !$isSetLogin) {
-        header('Location: index.php');
-    }
 
 
-    ?>
+
+?>
 
 <!doctype html>
 <html lang="pl">
 
 <head>
-<meta name="description" content="programmer's blog">
-<meta http-equiv=”Content-Security-Policy” content=”script-src 'self'; img-src 'self'; style-src 'self'”>
-
-
     <?php include_once "components/head.php" ?>
-    <?php
+    <?php 
         include_once "components/$page/head.php";
-//        include_once "components/$page/headsa.php";
     ?>
+    
+
+
 </head>
 
 <body>
@@ -77,36 +47,49 @@
 
     <div id="wrapper-0">
         <!-- Header -->
-        <?php
-        include_once "components/$page/header.php";
+        <?php 
+            include_once "components/$page/header.php"
+        ?>
+
+        <?php 
+
         include_once "components/$page/introduction.php";
-        include_once "components/$page/content.php";
-        include_once "components/$page/menu.php";
+            
 
+        ?>  
+        <?php
 
+            include_once "components/$page/menu.php"; 
 
         ?>
+
+        <?php
+            if($page==='login'){
+                include_once "components/$page/login-false.php";
+            }
+        ?>
+
+
     </div>
-    <?php
-
-        if ($page==='index') {
-            echo <<<WR
-        <div id="wrapper-1" ></div>
-        <div id="wrapper-2" ></div>
-        <div id="wrapper-3" ></div>
-WR;
-        };
-
+    <?php 
+        
+        if($page==='index') {
+            include_once "components/$page/wrapper-1.php"; 
+            include_once "components/$page/wrapper-2.php"; 
+            include_once "components/$page/wrapper-3.php"; 
+        };     
+        
     ?>
 
 
 
 <footer>
-   webpage:
-    <a target="_blank" rel="noopener" href="https://github.com/sfra">&copy; Szymon Frankowski 2018</a>
-            <?php
-        if ($page!=='login') {
+   webpage: 
+    <a target="_blank" href="https://github.com/sfra">&copy; Szymon Frankowski 2018</a> 
+            <?php 
+        if($page!=='login') {
             include_once 'components/index/navigation.php';
+            
         }
     ?>
 </footer>
@@ -125,22 +108,37 @@ WR;
     </script> -->
 
 
-
-
-    <script src="scripts/components/<?=$page ?><?= $min?>.js"></script>
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+<!--    <script src="vendor/scripts/jquery.js"></script>-->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="scripts/components/<?=$page ?>.js"></script>
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
 </body>
 
 </html>
 
 
-
-
-
-
-
 <?php
- if ($configJSON['env'] !== 'dev' && !isset($_GET['login'])) {
-     include_once "cashing/bottom-cache.php";
- }
+    
+
+    if($_GET['page']==='blog'){
+        
+    ?>
+        <script>
+            setTimeout(function(){
+                
+                window.moveViewportToWrapper(1);
+                
+            },500);
+        </script>
+        
+        <?php
+    };
 
 ?>
+
+

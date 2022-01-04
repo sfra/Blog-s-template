@@ -1,0 +1,241 @@
+@font-face {
+  font-family: "JACKPORTCOLLEGENCV";
+  src: url("./../fonts/jack/jackportcollegencv.eot"); /* IE9 Compat Modes */
+  src: url("./../fonts/jack/jackportcollegencv.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./../fonts/jack/jackportcollegencv.otf") format("opentype"), /* Open Type Font */
+    url("./../fonts/jack/jackportcollegencv.svg") format("svg"), /* Legacy iOS */
+    url("./../fonts/jack/jackportcollegencv.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./../fonts/jack/jackportcollegencv.woff") format("woff"), /* Modern Browsers */
+    url("./../fonts/jack/jackportcollegencv.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+        body * {
+            overflow: hidden;
+        }
+
+
+
+        #eagle {
+            z-index: 700;
+            transform: translate(200px, 10px);
+        }
+
+        #main-image-wrapper {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+        #main-image {
+            display: block;
+            position: relative;
+            animation-name: image;
+            animation-duration: 60s;
+            animation-direction: alternate;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+
+            filter: sepia(.3);
+        }
+
+        .info-wrapper {
+            text-align: right;
+            position: absolute;
+            top: 120px;
+            right: 30px;
+            min-height: 500px;
+            font-family: JACKPORTCOLLEGENCV;
+            font-size:30px;
+            float: right;
+        }
+
+#info {
+    margin-bottom: 80px;
+    position: relative;
+}
+    #fourzerofour {
+        font-size: 60px;
+        float: right;
+        display: flex;
+        height: 300px;
+}
+
+#fof {
+    display: flex;
+    position: absolute;
+/*    position: relative;*/
+    width: 100%;
+    animation-name: fof, fof2, fof3, big-fof, fof-color;
+    animation-duration: 1s,10s, 20s, 1s, 4s;
+    animation-delay: 9.5s, 25s, 57s, 33s, 102s;
+/*    animation-delay: 9.5s, 25s, 57s, 33s, 81s;*/
+/*    animation-delay: 9.5s, 25s, 57s, 33s, 0s;*/
+    animation-direction: alternate, normal, normal, normal, alternate;
+    animation-fill-mode: forwards, forwards,forwards,forwards, forwards;
+    animation-iteration-count: 23, 11, 4,33, 7;
+    
+    top: 200px;
+    
+    text-align: center;
+    z-index: 20;
+    margin: 0 auto;
+}
+
+#fof > div {
+/*    width: 30px;*/
+    width: 100%;
+    float: right;
+
+/*    width: 10px;*/
+    
+}
+
+#fof > div::before {
+    width: 15px;
+    content: "!";
+    transform: rotate(180deg) translate(14px,15px);
+    position: absolute;
+    animation-name: before_;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-delay: 135s;
+
+}
+
+#fof > div::after {
+    width: 15px;
+    content: "!";
+/*    transform: rotate(180deg) translate(14px,15px);*/
+    position: absolute;
+    animation-name: after;
+    animation-duration: 2s;
+    animation-iteration-count: 5;
+    animation-fill-mode: forwards;
+
+    
+}
+
+#fof > div:nth-child(2n){
+    animation-name: spaces;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    width: 2px;
+}
+
+
+
+@keyframes image {
+    0% { margin-left: 0px;}
+    100%{ margin-left: -6600px;}
+/*    100% { margin-left: 0px;}*/
+}
+
+@keyframes fof {
+    0% {}
+   50% { 
+       font-size: 130px;
+        margin-top: 30px;
+/*        left: 130px;*/
+    }
+    100% {}
+}
+
+
+
+@keyframes big-fof {
+    0% {}
+   50% { 
+       font-size: 330px;
+        margin-top: 30px;
+       left: -30px;
+/*        left: 130px;*/
+    }
+    100% {}
+}
+
+
+
+
+@keyframes fof2 {
+    0% { transform: rotate(0deg) scale(1) translateY(0px); }
+    5% { transform: rotate(180deg) scale(.4) translateY(-150px); }
+    10% { transform: rotate(360deg) scale(.4) translateY(-150px);}
+    11% {transform: rotate(0deg) scale(1) translateY(0px);}
+    100% {transform: rotate(0deg) scale(1) translateY(0px);}
+}
+
+
+
+
+@keyframes fof-color {
+    0% { color: #ffffff; }
+    5% { color: #ff0000; }
+    10% { color: #00ff00;}
+    15% {color: #0000ff;}
+    20% {color: #f0f0f0;}
+    25% {color: #0f0f0f;}
+    30% {color: #ff00ff;}
+    35% {color: #00ff00;}
+    100% {color: #ffffff;}
+}
+
+
+@keyframes spaces {
+    0%{ width: 0px; }
+    10%{ width: 40px;
+        
+    }
+    30%{width: 0px; }
+    50%{width: 40px;}
+    70%{width: 0px;}
+    100%{width: 40px;}
+}
+
+@keyframes after {
+    0%{
+        transform: rotate(0deg);
+    }
+    50%{
+                transform: rotate(180deg);
+    }
+    100%{
+                        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes before_ {
+    0%{
+       margin-left: 0px; 
+    }
+    10%{
+               margin-left: -20px; 
+    }
+    20%{
+               margin-left: -10px; 
+    }
+    50%{
+               margin-left: -20px; 
+    }
+        60%{
+               margin-left: -10px; 
+    }
+    
+    
+    100%{
+        margin-left: 0px;
+    }
+}

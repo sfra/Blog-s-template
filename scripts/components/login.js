@@ -1,7 +1,9 @@
-/*properties attr */
-/*global state, sessionStorage, config, __ajax */
-
-(() => {
+(function () {
+    let config = {
+        mainMenu: {
+            opened: false
+        }
+    };
 
     state.lastScrollPosition = 0;
     state.wrapperNr = 0;
@@ -10,59 +12,52 @@
     state.mouseIsUp = false;
 
 
+
+
+
 })();
 
 
-let $wrongLogin = null;
-let translations = null;
-let $loader=null; 
-
-window.onload = () => {
-    'use strict';
-
-    const $menu = document.getElementById('menu'),
-        $mainMenuButton = document.getElementById('main-menu-button'),
-        $body = document.querySelector('body'),
-        $background = document.createElement('div'),
-        $links = document.querySelector('#menu > ul'),
-        $forgot = document.getElementById('forgot'),
-        $form2 = document.createElement('form');
-
-    let translations = null;
-    $loader = document.querySelector('.loader');
-    $wrongLogin = document.getElementById('wrong-login');
-    $form2.setAttribute('style', '200px');
-
-    (new __ajax('../config/mexico.json').get().then(data => {
-        console.log(data);
-        (new __ajax(`translations/${JSON.parse(data)['language']}.json`)).get().then(data => {
-            translations = JSON.parse(data);
-            $form2.innerHTML = translations['reseting-email'];
-        });
-    }));
 
 
-    if (navigator.userAgent.search('Firefox') !== -1) {
+window.onload = function () {
+
+    let $menu = document.getElementById('menu');
+    let $mainMenuButton = document.getElementById('main-menu-button');
+    
+    let $body = document.querySelector('body');
+    let $background = document.createElement('div');
+    let $register = document.getElementById('register');
+    let $links = document.querySelector('#menu > ul');
+    
+    
+    
+    
+    if(navigator.userAgent.search('Firefox')!==-1){
         document.body.classList.add('ff');
     };
-
+    
     $background.classList.add('background');
     $body.prepend($background);
-
+    
     $mainMenuButton.classList.add('active');
     $menu.classList.remove('hidden');
 
-    config.mainMenu.opened = true;
 
-    setTimeout(() => {
-        $links.classList.remove('deactivated');
-    }, 0);
+
+    config.mainMenu.opened = true;
+    
+    setTimeout(function(){
+    $links.classList.remove('deactivated');
+        
+    },0);
 
 
     /* Event for open menu */
-    $mainMenuButton.addEventListener('click', (e) => {
+    $mainMenuButton.addEventListener('click', function (e) {
 
         if (config.mainMenu.opened) {
+
             $mainMenuButton.classList.remove('active');
             $menu.classList.add('hidden');
             config.mainMenu.opened = false;
@@ -70,54 +65,42 @@ window.onload = () => {
         } else {
             $mainMenuButton.classList.add('active');
             $menu.classList.remove('hidden');
+
+
+
             config.mainMenu.opened = true;
-        }
+
+        };
 
         e.preventDefault();
 
     }, false);
 
-    //    $register.addEventListener('click',function(e){
-    //        e.preventDefault();
-    //    },false);
+//    $register.addEventListener('click',function(e){
+//        e.preventDefault();
+//    },false);
 
-    const $form = document.createElement('form'),
-        $input0 = document.createElement('input'),
-        $input1 = document.createElement('input'),
-        $loginButton = document.getElementById('login-button'),
-        $closeWindow = document.getElementById('cross').children[0];
-
-
-    $links.addEventListener('click', (e) => {
-
-        if (typeof window.orientation === 'undefined') {
-            return;
-        }
-        let $target = e.target;
-
-        if ($target.tagName === 'INPUT') {
-            if (document.activeElement.getAttribute('type') === 'text' || document.activeElement.getAttribute('type') === 'password') {
-                document.querySelector('.register').style.display = 'none';
-            }
-        } else {
-            document.querySelector('.register').style.display = 'block';
-        }
-
-    }, false);
-
-    $closeWindow.addEventListener('click', () => {
+    let $form = document.createElement('form');
+    let $input0 = document.createElement('input');
+    let $input1 = document.createElement('input');
+    let $loginButton = document.getElementById('login-button');
+    let $closeWindow = document.getElementById('cross').children[0];
+    let $wrongLogin = document.getElementById('wrong-login');
+    
+    
+    $closeWindow.addEventListener('click',function(){
         document.getElementById('wrong-login').classList.remove('visible');
-    }, false);
-
-
-    document.addEventListener('keyup', (e) => {
-        if (e.key === 'Escape') {
-            document.getElementById('wrong-login').classList.remove('visible');
+    },false);
+    
+    
+    document.addEventListener('keyup',function(e){
+        if(e.key==='Escape') {
+                    document.getElementById('wrong-login').classList.remove('visible');
         };
 
-    }, false);
-
-
+    },false);
+    
+    
     $form.setAttribute('action', 'admin/login.php');
     $form.setAttribute('method', 'POST');
     $input0.setAttribute('name', 'login');
@@ -125,62 +108,54 @@ window.onload = () => {
     $form.appendChild($input0);
     $form.appendChild($input1);
 
+//    document.body.appendChild($form);
 
-    $loginButton.addEventListener('click', () => {
 
-        $input0.value = encodeURIComponent(document.getElementById('menu').querySelectorAll('input')[0].value);
+    $loginButton.addEventListener('click', function () {
+        $input0.value = encodeURIComponent( document.getElementById('menu').querySelectorAll('input')[0].value);
         $input1.value = encodeURIComponent(document.getElementById('menu').querySelectorAll('input')[1].value);
+        
+        
 
-        let ajax = new __ajax('admin/login.php', {
-            value: 'POST'
-        });
-        ajax.setParameters({
-            login: $input0.value,
-            password: $input1.value
-        });
-        ajax.get().then(function (data) {
-            if (data === '[OK]') {
-                window.location.replace('index.php?login=true');
+        let ajax = new __ajax('http://localhost/mexico3/admin/login.php',{value: 'POST'});
+        ajax.setParameters({login: $input0.value, password: $input1.value});
+        ajax.get().then(function(data){
+            if(data==='ok') {
+                window.location.replace('http://localhost/mexico3/index.php');
             } else {
-                try {
-                    $wrongLogin.querySelector('p').removeChild($form2);
-                } catch (e) {
-
-                }
-
-                $wrongLogin.querySelector('p').innerHTML = translations['wrong-login'];
+                
                 $wrongLogin.classList.add('visible');
+
             };
+            
+
         });
+        
 
     }, false);
+
 
 
     if (document.querySelector('.incorrect-login')) {
         let $incorrectOK = document.querySelector('.incorrect-login').children[0];
 
-        $incorrectOK.addEventListener('click', () => {
+
+
+        $incorrectOK.addEventListener('click', function () {
             $incorrectOK.parentElement.parentElement.removeChild(document.querySelector('.incorrect-login'));
         }, false);
-    }
+    };
 
 
-    document.body.addEventListener('keyup', (e) => {
-        //  console.log(e);
-        if (e.key === 'Enter' && !$wrongLogin.classList.contains('visible')) {
+    document.body.addEventListener('keyup',function(e){
+        console.log(e);
+        if(e.key==='Enter') {
             let event = new Event('click');
             $loginButton.dispatchEvent(event);
         }
-    }, false);
-
-    $forgot.addEventListener('click', (e) => {
-        e.preventDefault();
-        $wrongLogin.querySelector('p').innerHTML = '';
-        $wrongLogin.querySelector('p').appendChild($form2);
-
-        $wrongLogin.classList.add('visible');
-
-    }, false);
+    },false);
+    
+    
 
 
 }
@@ -188,24 +163,28 @@ window.onload = () => {
 
 
 
-function submitMail(translations) {
 
-    let ajax = new __ajax('admin/submitMail.php', {
-        method: 'post'
-    });
 
-    ajax.setParameters({
-        mail: document.getElementById('mail').value
-    });
-    $loader.classList.remove('hidden');
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
 
-    ajax.get().then((data) => {
-        $loader.classList.add('hidden');
-        if (data == '[OK]') {
-            $wrongLogin.querySelector('p').innerHTML = translations[0];
-        } else {
-            $wrongLogin.querySelector('p').innerHTML = translations[1];
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for (var key in params) {
+        if (params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
         }
+    }
 
-    });
+    document.body.appendChild(form);
+    form.submit();
 }

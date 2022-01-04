@@ -1,0 +1,44 @@
+@mixin perspect($x){
+    -webkit-perspective: $x;
+    perspective: $x;
+}
+
+@mixin boxSh($x){
+    box-shadow: $x;
+    -moz-box-shadow: $x;
+    box-shadow: $x;
+}
+
+@mixin bg_with_linear_gradient($x,$y:null){
+
+    @if $y==null{
+        background: -webkit-linear-gradient($x);
+        background: -moz-linear-gradient($x);
+        background: linear-gradient($x);
+    }
+    @else{
+        background: linear-gradient($x),linear-gradient($y);
+        background: -webkit-linear-gradient($x), -webkit-linear-gradient($y);
+        background: -moz-linear-gradient($x),-moz-linear-gradient($y);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='$x', endColorstr='#$y',GradientType=0);
+    }
+    
+    
+    
+    
+    
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+ 
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}

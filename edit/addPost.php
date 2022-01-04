@@ -1,19 +1,10 @@
 
 <?php
-    
-$config = file_get_contents('../../config/mexico.json');
-
-
-$configJSON = json_decode($config, true);
-
-
-include_once $configJSON['password_path'];
-
-
+    include_once '/home/szymon/pass/02a.php';
     session_start();
 
 
-    $mysqli = mysqli_connect('localhost',$user,$password,$configJSON['db_name']);
+    $mysqli = mysqli_connect('localhost',$user,$password,'mexico');
 
 
     if($mysqli->connect_errno) {

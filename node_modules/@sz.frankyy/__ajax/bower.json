@@ -1,0 +1,31 @@
+{
+  "name": "__ajax",
+  "main": "__ajax.js",
+  "version": "1.0.0",
+  "authors": [
+    "Szymon Frankowski <sz.frankyy@gmail.com>"
+  ],
+  "description": "Simple ajax library for js",
+  "keywords": [
+    "ajax",
+    "js"
+  ],
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sfra/__ajax",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+
+  },
+  "devDependencies": {},
+  "private": false
+}

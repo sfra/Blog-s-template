@@ -1,15 +1,17 @@
-<?php
-$configJSON = json_decode(file_get_contents("../../../config/mexico.json"),true);
 
-$translations = json_decode(file_get_contents("../../translations/{$configJSON["language"]}.json"),true);
-?>
+<div id="wrapper-3">
 <div id="background-wrapper">
-    <div class="img-wrapper">
-        <img srcc="[@images/contact.jpg@]" alt="contact" class="sizedependent" />
-    </div>
+            <div class="img-wrapper">
+                <img src="images/fasola2.png" />
+            </div>
+
+        </div>
+        <section id="introduction">
+
+            <div>Mój adres</div>
+            <div>ul. Szopena 17</div>
+            <div>01-221 Wąchock</div>
+            <div>Email: ad@wp.pl</div>
+
+        </section>    
 </div>
-<section id="introduction2">
-<?php print_r($translations["wrapper-3"][0]) ?>
-
-</section>    
-

@@ -1,16 +1,9 @@
 <?php
-    
-$config = file_get_contents('../../../config/mexico.json');
-
-
-$configJSON = json_decode($config, true);
-
-
-include_once $configJSON['password_path'];
+    include_once '/home/szymon/pass/02.php';
     $out = '';
     $errors = array();
     $posts = array();
-    $mysqli = new mysqli('localhost',$user,$password,$configJSON['db_name']);
+    $mysqli = new mysqli('localhost',$user,$password,'mexico');
         
         if($mysqli->connect_errno){
             array_push($errors,'Błąd sql');  
@@ -46,8 +39,6 @@ include_once $configJSON['password_path'];
 //        
     };
 
-$mysqli->kill($mysqli->thread_id);
-$mysqli->close();
 
 
 ?>

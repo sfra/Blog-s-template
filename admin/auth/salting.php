@@ -1,6 +1,8 @@
 <?php
 
 
+
+
     function randomGenerator($l){
 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $randstring = '';
@@ -10,6 +12,10 @@ $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     return $randstring;    
     };
 
+    
+//    function getRandom($string) {
+//        return $string.randomGenerator(10).date('Y-m-d');
+//    };
 
     function hashPassword($user,$password,$salt) {
         return hash('sha256',"$user+$password".$salt);

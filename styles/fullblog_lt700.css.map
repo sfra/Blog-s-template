@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,gBAAiB;EAGb,OAAO,EAAE,GAAG;EAER,0BAAK;IACD,KAAK,EAAE,OAAO",
+"sources": ["../scss/fullblog_lt700.scss"],
+"names": [],
+"file": "fullblog_lt700.css"
+}

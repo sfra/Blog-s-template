@@ -1,15 +1,7 @@
 <?php
 
   error_reporting(E_ALL);
-
-    $config = file_get_contents('../config/mexico.json');
-
-
-    $configJSON = json_decode($config, true);
-
-
-    include_once $configJSON['password_path'];
-
+  include_once '/home/szymon/pass/02.php';
 
   $page;
 
@@ -34,7 +26,7 @@
 
 
 
-  $mysqli =  mysqli_connect('localhost',$user,$password,$configJSON['db_name']);
+  $mysqli =  mysqli_connect('localhost',$user,$password,'mexico');
 
        if ($mysqli->connect_errno) {
             echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;

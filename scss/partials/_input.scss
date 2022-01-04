@@ -5,7 +5,6 @@
 * {
   box-sizing: border-box;
 }
-
 html,
 body {
   overflow-x: hidden;
@@ -13,60 +12,83 @@ body {
   font-weight: 300;
 
 }
+@mixin epic-sides() { // https://codepen.io/MichaelArestad/pen/qltuk
+    position: relative;
+    z-index: 1;
 
-#shorter {
-  width: 300px;
+    &:before {
+        position: absolute;
+        content: "";
+        display: block;
+        top: 0;
+        left: -5000px;
+        height: 100%;
+        width: 15000px;
+        z-index: -1;
+        @content;
+    }
 }
 
 select {
-  padding: 10px 15px;
-  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
-  transition: all .3s ease-in-out;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  overflow: hidden;
-
-
+    padding: 10px 15px;
+    text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+    transition: all .3s ease-in-out;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    overflow: hidden;
+    @include epic-sides() {background: inherit;}
 }
 
 #save {
-  padding: 10px 15px;
-  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
-  transition: all .3s ease-in-out;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  overflow: hidden;
-  position: relative;
-  top: -80px;
-
-  float: right;
+    padding: 10px 15px;
+    text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+    transition: all .3s ease-in-out;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    overflow: hidden;
+    @include epic-sides() {background: inherit;}
+    float: right;
 }
 
 .row {
-  position: relative;
-  top: -130px;
-  left: -40px;
   max-width: 800px;
-  width: 30%;
   margin: 0 auto;
-  float: left;
   padding: 6px 30px;
   background: #a1a1a1;
-
+  @include epic-sides() {background: inherit;}
   text-align: center;
   height: 50px;
-
+  
+  &:first-child {
+    padding: 40px 30px;
+  }
+  &:nth-child(2),
+  &:nth-child(8),
+  &:nth-child(10){
+    background: lighten(#a1a1a1,10%);
+  }
+  &:nth-child(3),
+  &:nth-child(7) {
+    background: darken(#a1a1a1,10%);
+  }
+  &:nth-child(4),
+  &:nth-child(6) {
+    background: lighten(#a1a1a1,10%);
+  }
+  &:nth-child(5) {
+    background: lighten(#a1a1a1,10%);
+  }
+  
   span {
     position: relative;
     display: inline-block;
-
+    //margin: 30px 10px;
   }
 }
-
-.slide-up {
+.basic-slide {
   display: inline-block;
-  width: 30%;
-  padding: 10px 0 10px 5px;
+  width: 215px;
+  padding: 10px 0 10px 15px;
   font-family: "Open Sans", sans;
   font-weight: 400;
   color: #000000;
@@ -74,6 +96,283 @@ select {
   border: 0;
   border-radius: 3px;
   outline: 0;
+  text-indent: 70px; // Arbitrary.
   transition: all .3s ease-in-out;
+  
+  &::-webkit-input-placeholder {
+    color: #010101;
+    text-indent: 0;
+    font-weight: 300;
+  }
 
+  + label {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 15px;
+    text-shadow: 0 1px 0 rgba(12,12,12,.4);
+    background: #7AB893;
+    transition: all .3s ease-in-out;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+}
+.basic-slide:focus,
+.basic-slide:active {
+  color: #000000;
+  text-indent: 0;
+  background: #fff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  
+  &::-webkit-input-placeholder {
+    color: #aaa;
+  }
+  + label {
+    transform: translateX(-100%);
+  }
+}
+.clean-slide {
+  position: relative;
+  display: inline-block;
+  width: 215px;
+  padding: 10px 0 10px 15px;
+  font-family: "Open Sans", sans;
+  font-weight: 400;
+  color: #000000;
+  background: #efefef;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  text-indent: 60px; // Arbitrary.
+  transition: all .3s ease-in-out;
+  
+  &::-webkit-input-placeholder {
+    color: #efefef;
+    text-indent: 0;
+    font-weight: 300;
+  }
+
+  + label {
+    display: inline-block;
+    position: absolute;
+    transform: translateX(0);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 13px 15px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #032429;
+    text-align: left;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+    transition: all .3s ease-in-out, color .3s ease-out;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    overflow: hidden;
+    
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 100%;
+      bottom: 0;
+      width: 100%;
+      background: #7AB893;
+      z-index: -1;
+      transform: translate(0);
+      transition: all .3s ease-in-out;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+  }
+}
+.clean-slide:focus,
+.clean-slide:active {
+  color: #333;
+  text-indent: 0;
+  background: #fff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  
+  &::-webkit-input-placeholder {
+    color: #aaa;
+  }
+  + label {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(19,74,70,.4);
+    transform: translateX(-100%);
+    
+    &:after {
+      transform: translate(100%);
+    }
+  }
+}
+.skinny {
+  display: inline-block;
+  width: 215px;
+  padding: 10px 0 10px 15px;
+  font-family: "Open Sans", sans;
+  font-weight: 400;
+  color: #333;
+  background: #efefef;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  text-indent: 75px; // Arbitrary.
+  transition: all .3s ease-in-out;
+  
+  &::-webkit-input-placeholder {
+    color: #efefef;
+    text-indent: 0;
+    font-weight: 300;
+  }
+
+  + label {
+    display: inline-block;
+    position: absolute;
+    transform: translateX(0);
+    top: 0;
+    left: 0;
+    padding: 10px 15px;
+    text-shadow: 0 1px 0 rgba(19,74,70,.4);
+    transition: all .3s ease-in-out;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    overflow: hidden;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      left: 0;
+      z-index: -1;
+      transition: all .3s ease-in-out;
+    }
+    &:before {
+      // Skinny bit here
+      top: 5px;
+      bottom: 5px;
+      background: #333; // change this to #134A46
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    &:after {
+      top: 0;
+      bottom: 0;
+      background: $color1;
+    }
+  }
+}
+.skinny:focus,
+.skinny:active {
+  color: #333;
+  text-indent: 0;
+  background: #fff;
+  
+  &::-webkit-input-placeholder {
+    color: #aaa;
+  }
+  + label {
+    transform: translateX(-100%);
+    
+    &:after {
+      transform: translateX(100%);
+    }
+  }
+}
+
+
+
+.slide-up {
+  display: inline-block;
+  width: 215px;
+  padding: 10px 0 10px 15px;
+  font-family: "Open Sans", sans;
+  font-weight: 400;
+  color: #000000;
+  background: #efefef;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  text-indent: 80px; // Arbitrary.
+  transition: all .3s ease-in-out;
+  
+  &::-webkit-input-placeholder {
+    color: #efefef;
+    text-indent: 0;
+    font-weight: 300;
+  }
+
+  + label {
+    display: inline-block;
+    position: absolute;
+    transform: translateX(0);
+    top: 0;
+    left: 0;
+    padding: 10px 15px;
+    text-shadow: 0 1px 0 rgba(19,74,70,.4);
+    transition: all .3s ease-in-out;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    overflow: hidden;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      left: 0;
+      z-index: -1;
+      transition: all .3s ease-in-out;
+    }
+    &:before {
+      // Skinny bit here
+      top: 6px;
+      left: 5px;
+      right: 5px;
+      bottom: 6px;
+      background: #cacaca; // change this to #134A46
+    }
+    &:after {
+      top: 0;
+      bottom: 0;
+      background: #cacaca;
+    }
+  }
+}
+span:nth-child(1) .slide-up {
+  text-indent: 105px;
+}
+span:nth-child(3) .slide-up {
+  text-indent: 125px;
+}
+span:nth-child(1) .slide-up:focus,
+span:nth-child(1) .slide-up:active,
+span:nth-child(3) .slide-up:focus,
+span:nth-child(3) .slide-up:active {
+  text-indent: 0;
+}
+.slide-up:focus,
+.slide-up:active {
+  color: #000000;
+  text-indent: 0;
+  background: #fff;
+  
+  &::-webkit-input-placeholder {
+    color: #aaa;
+  }
+  + label {
+    transform: translateY(-100%);
+
+    &:before {
+      border-radius: 5px;
+    }
+    &:after {
+      transform: translateY(100%);
+    }
+  }
 }

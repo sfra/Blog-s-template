@@ -1,8 +1,9 @@
-<?php
+<?php 
 
-    $fileToRemove = $_POST['file'];
+    $fileToRemove = $_GET['file'];
+//    unlink('uploads/'.$fileToRemove);
 
-    print_r('uploads/'.$fileToRemove);
-    unlink('uploads/'.$fileToRemove);
+    header('Location: edit.php');
 
-//    header('Location: edit.php');
+
+?>

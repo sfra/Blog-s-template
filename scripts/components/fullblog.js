@@ -1,205 +1,348 @@
-/*properties attr, src, fn,gal,offset, left, mouseOut, stopPropagation, bubbles, pageX, pageY, X, Y, html, append, css, top, parent, border, trigger, animate, opacity, remove, height, width, data, gal_close, class, on , children, wrap, addClass, find, deepExt, apply, defaults */
-/*global state, console, functions, __ajax*/
+let contents = [];
 
-let contents = [],
-    translations = null;
 
 state.isDeep = true;
+
+state.color = {
+    r: 104,
+    g: 64,
+    b: 5
+}
 state.currentComment = {};
-state.commentEnlarged = false;
 
 
+let $modalWindow = document.getElementById('modalWindow');
 
-window.onload = () => {
+let resizeTimer;
 
-    const $modalWindow = document.getElementById('modalWindow'),
-        $menu = document.getElementById('menu'),
-        $contents = document.querySelectorAll('.content'),
-        $arrowUp = document.getElementById('arrow-up'),
-        $changeCategory = document.getElementById('change-category'),
-        $mainImages = document.querySelectorAll('.sizedependent'),
-        $wrapper0 = document.getElementById('wrapper-0');
+let content = null;
+
+window.onload = function () {
 
 
-    const fullblog = {
-        less: (j, $contents) => {
+    let $menu = document.getElementById('menu');
+    let $contents = document.querySelectorAll('.content');
+
+    let $arrowUp = document.getElementById('arrowUp');
+
+    let fullblog = {
+        less: function (j, $contents) {
+
+
             contents[j] = $contents[j].innerHTML;
             $contents[j].innerHTML = $contents[j].innerHTML.replace(/<img\/?[^>]+(>|$)/g, '[...]').slice(0, 150) + '...';
+
+
         },
-        less2: ($content) => {
-            $content.innerHTML = $content.innerHTML.replace(/<img\/?[^>]+(>|$)/g, '[...]').slice(0, 150) + '...';
-        },
-        more: (j, $content) => {
-            $content.innerHTML = contents[j];
-            functions.resizeImages(document.querySelectorAll('.sizedependent'));
+        more: function (j) {
+            debugger;
+            $contents[j].innerHTML = contents[j];
+            resizeImages(document.querySelectorAll('.sizedependent'));
         }
     };
 
 
-    functions.run();
-    functions.resizeImages($mainImages);
+    run();
 
+    let $mainImages = document.querySelectorAll('.sizedependent');
+
+    //    console.log($mainImages);
+
+    resizeImages($mainImages);
+
+
+
+
+
+
+    let $wrapper0 = document.getElementById('wrapper-0');
 
     if (window.innerWidth > 700) {
-        functions.menuObj.showMenu($menu);
+        menuObj.showMenu($menu);
         $menu.style.display = '';
     } else {
         $menu.style.display = 'none';
-        functions.menuObj.hideMenu($menu);
+        menuObj.hideMenu();
         $wrapper0.classList.remove('blurred');
-        setTimeout(() => {
+        setTimeout(function () {
             $menu.style.display = '';
         }, 1000);
     };
 
 
-    functions.menu();
+
+    //   let windowWidth = window.innerWidth;
+
+
+    menu();
+
+
+
 
     for (let i = 0, max = $contents.length; i < max; i++) {
+
         fullblog.less(i, $contents);
     };
 
-    window.addEventListener('resize', () => {
+
+    window.addEventListener('resize', function () {
+
+
+
         if (window.innerWidth > 700) {
-            functions.menuObj.showMenu($menu);
+            menuObj.showMenu($menu);
         } else {
-            functions.menuObj.hideMenu($menu);
+
+            menuObj.hideMenu();
             $wrapper0.classList.remove('blurred');
         };
 
-        functions.resizeImages(document.querySelectorAll('.sizedependent'));
+        resizeImages();
 
 
     }, true);
 
-    (new __ajax('config/mexico.json')).get().then(data => {
-        (new __ajax(`translations/${JSON.parse(data)['language']}.json`)).get().then(data => {
-            translations = JSON.parse(data);
-            $wrapper0.addEventListener('click', (e) => {
 
-                let $target = e.target;
 
-                if ($target.classList.contains('plus') && $target.classList.contains('firstone')) {
-                    if ($target.innerHTML === '+') {
-                        $target.innerHTML = '-';
-                        $target.parentElement.classList.remove('hidden');
-                    } else if ($target.innerHTML === '-') {
 
-                        $target.parentElement.classList.add('hidden');
-                        $target.innerHTML = '+';
+    $wrapper0.addEventListener('click', function (e) {
+
+
+        let $target = e.target;
+
+        debugger
+        if ($target.classList.contains('forum') || $target.classList.contains('plus')) {
+
+            if ($target.classList.contains('hidden')) {
+                $target.classList.remove('hidden');
+                $target.querySelector('p').innerHTML = '-';
+            } else {
+                $target.classList.add('hidden'); //
+                $target.querySelector.innerHTML = '*';
+            };
+        };
+
+        if ($target.classList.contains('loadMore')) {
+            $target.classList.remove('loadMore');
+            $target.classList.add('loaded');
+            getForum($target);
+
+        };
+        
+//        if (functions.hasClass($target, 'forum') || functions.hasClass($target,'plus')) {
+//
+//            if ($target.classList.contains('hidden')) {
+//                $target.classList.remove('hidden');
+//                $target.querySelector('p').innerHTML = '-';
+//            } else {
+//                $target.classList.add('hidden'); //
+//                $target.querySelector.innerHTML = '+';
+//            };
+//        };
+//
+//        if (functions.hasClass($target, 'loadMore')) {
+//            $target.classList.remove('loadMore');
+//            //            debugger;
+//            loadChildren($target);
+//
+//        };
+
+        /** TO DO **/
+        
+
+
+        function getForum($target) {
+            let ajax = new __ajax('components/forum/getForum.php', {
+                value: 'POST'
+            });
+             
+            let dataId = $target.parentElement.previousSibling.getAttribute('data-id-previous-post');
+            
+            ajax.setParameters({
+                forum_prev_id: $target.getAttribute('data-id')
+            });
+
+
+            ajax.get().then(function (data) {
+
+                let dataJSON = JSON.parse(data);
+                let $login = null;
+                let $date = null;
+                let $content = null;
+                let $addComment = null;
+                let $plus = null;
+                let $commentLevel = document.createElement('div');
+
+                $commentLevel.classList.add('comment');
+
+                for (let i = 0, max = dataJSON.length; i < max; i++) {
+
+                    $login = document.createElement('div');
+                    $login.classList.add('login');
+                    $login.innerHTML = dataJSON[i]['login'];
+                    $date = document.createElement('div');
+                    $date.classList.add('date');
+                    $date.innerHTML = dataJSON[i]['date'];
+
+                    $content = document.createElement('div');
+                    $content.classList.add('content_');
+                    $content.innerHTML = dataJSON[i]['content'];
+
+
+                    $addComment = document.createElement('div');
+                    $addComment.classList.add('addComment');
+                    $addComment.innerHTML = 'skomentuj';
+
+                    if (typeof canComment == 'undefined') {
+                        $addComment.style.display = 'none';
                     }
-                }
 
-                if ($target.classList.contains('plus') && $target.classList.contains('load-more') && $target.innerText[0] === '-') {
-                    $target.innerHTML = $target.innerHTML.replace('-', '+');
-                    $target.setAttribute('loaded', 'true');
-                    $target.style.height = '20px';
-                    return;
-                }
 
-                if ($target.classList.contains('plus') && $target.classList.contains('load-more') && $target.innerText[0] === '+' && $target.getAttribute('loaded') !== null) {
-                    $target.innerHTML = $target.innerHTML.replace('+', '-');
-                    $target.setAttribute('loaded', 'true');
-                    $target.style.height = '';
-                    return;
-                }
 
-                if ($target.classList.contains('plus') && $target.classList.contains('load-more')) {
-                    if ($target.getAttribute('status') === 'unloaded') {
-                        getForum($target);
-                        $target.setAttribute('status', 'unloaded');
-                        $target.innerHTML = $target.innerHTML.replace('+', '-');
-                    };
-                    return;
-                }
+                    $commentLevel.appendChild($login);
+                    $commentLevel.appendChild($date);
+                    $commentLevel.appendChild($content);
+                    $commentLevel.appendChild($addComment);
 
-                let $sibling = null;
+                    state.color.r += 14;
+                    state.color.g += 9;
+                    state.color.b += 1;
 
-                if ($target.classList.contains('more')) {
-                    $sibling = $target.previousElementSibling;
-                    if ($sibling.getAttribute('data-form') === 'shorter') {
-                        $sibling.setAttribute('data-form', 'longer');
-                        fullblog.more($sibling.getAttribute('x-data'), $sibling);
-                        $target.innerHTML = translations['less'];
-                    } else {
-                        $sibling.setAttribute('data-form', 'shorter');
-                        fullblog.less2($sibling);
-                        $target.innerHTML = translations['more'];
-                    };
-                };
 
-                if ($target.classList.contains('addComment')) {
 
-                    let content = null,
-                        fullContent = null,
-                        $content = $modalWindow.querySelector('.content');
+                    $commentLevel.style.backgroundColor = `rgba(${state.color.r},${state.color.g},${state.color.b})`;
 
-                    state.currentComment.prev_forum_id = $target.parentElement.getAttribute('x-data-id-comment');
 
-                    if (state.currentComment.prev_forum_id !== null) {
-                        $modalWindow.querySelector('.login').innerHTML = $target.parentElement.querySelector('.login').innerHTML;
-                        $modalWindow.querySelector('.date').innerHTML = $target.parentElement.querySelector('.date').innerHTML;
-                        fullContent = $target.parentElement.querySelector('.content_').innerHTML;
-                    } else {
-                        $content.innerHTML = 'Komentujesz';
-                        $modalWindow.querySelector('.date').innerHTML = '';
-                        fullContent = $target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
-                    }
+                    $target.appendChild($comment);
+                    $plus = document.createElement('div');
 
-                    let $enlarge = document.createElement('div'),
-                        arrowHTML = '<img width="20px" style="transform: rotate(90deg);" src="images/arrow.svg" />',
-                        arrowHTMLUp = '<img width="20px" style="transform: rotate(270deg);  top: -20px;" src="images/arrow.svg" />'
+                    if (dataJSON[i]['has_children'] === 1) {
 
-                    if (fullContent.length > 200) {
-                        content = fullContent.substr(0, 200) + ' ...';
-                        $enlarge.innerHTML = arrowHTML;
+                        $plus.classList.add('plus');
+                        $plus.classList.add('loadMore');
+                        $plus.innerHTML = '+';
 
-                        $enlarge.addEventListener('click', () => {
+                        $commentLevel.appendChild($plus);
+                        $plus.addEventListener('click', () => {
 
-                            if (!state.commentEnlarged) {
-                                $content.innerHTML = fullContent;
-                                $modalWindow.querySelector('.content').appendChild($enlarge);
-                                $content.parentElement.style.overflow = 'scroll';
-                                $enlarge.innerHTML = arrowHTMLUp;
+
+                            if (this.getAttribute('isLoaded') == null) {
+                                getForum(this);
+                                this.setAttribute('isLoaded', true);
+
+                                this.innerHTML = this.innerHTML.replace('+', '-');
+
                             } else {
-                                $content.innerHTML = content;
-                                $content.appendChild($enlarge);
-                                $content.parentElement.style.overflow = '';
-                                $enlarge.innerHTML = arrowHTML;
-                            }
 
-                            state.commentEnlarged = !state.commentEnlarged;
+                                if (this.innerText[0] === '-') {
+                                    this.innerHTML = this.innerHTML.replace('-', '+');
+                                    this.classList.add('hidden');
+                                } else if (this.innerText[0] === '+') {
+                                    this.innerHTML = this.innerHTML.replace('+', '-');
+                                    this.classList.remove('hidden');
+
+                                };
+
+                            };
+
+
                         }, false);
+                    };
 
-                    } else {
-                        content = fullContent;
-                    }
-
-
-                    $content.innerHTML = content;
-                    $content.appendChild($enlarge);
+                    $plus.setAttribute('data-id', dataJSON[i]['forum_id']);
+                    $commentLevel.appendChild($plus);
 
 
-                    document.querySelector('#modalWindow > div.comment > div.content').addEventListener('copy', (e) => {
-                        console.log(e.clipboardData)
-                    }, false);
+                };
+            });
 
-                    state.currentComment.post_id = $target.closest('.forum').previousElementSibling.previousElementSibling.getAttribute('data-id-posts');
-                    $modalWindow.classList.add('visible');
-
-                }
-
-            }, false);
-        });
-
-    });
+        }
 
 
-    window.addEventListener('scroll', (e) => {
 
-        let doc = document.documentElement,
-            top = ((window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)) || document.body.scrollTop;
 
+
+
+        if ($target.classList.contains('addComment')) {
+
+            if ($target.parentElement.querySelector('.login') !== null) {
+
+                $modalWindow.querySelector('.login').innerHTML = $target.parentElement.querySelector('.login').innerHTML;
+
+                $modalWindow.querySelector('.date').innerHTML = $target.parentElement.querySelector('.date').innerHTML;
+
+                $modalWindow.querySelector('.content').innerHTML = $target.parentElement.querySelector('.content_').innerHTML;
+
+            } else {
+
+                content = $target.parentElement.previousElementSibling.children[0].innerHTML;
+
+                $modalWindow.querySelector('.login').innerHTML = 'Komentujesz';
+
+                $modalWindow.querySelector('.date').innerHTML = '';
+
+                $modalWindow.querySelector('.content').innerHTML = content;
+            };
+
+
+
+            $modalWindow.classList.add('visible');
+            //              debugger;
+            state.currentComment.post_id = $target.closest('.forum').previousSibling.getAttribute('data-id-posts');
+
+            if ($target.nextElementSibling !== null && $target.nextElementSibling.hasAttribute('data-id')) {
+                state.currentComment.prev_forum_id = $target.nextElementSibling.getAttribute('data-id');
+            } else {
+                state.currentComment.prev_forum_id = 'NULL';
+            }
+
+
+        }
+
+        debugger;
+        if ($target.classList.contains('more')) {
+            let $sibling = $target.previousElementSibling;// ($target.previousElementSibling.previousElementSibling !== null) ? $target.previousElementSibling.previousElementSibling.previousElementSibling : $target.parentElement.previousElementSibling.previousElementSibling;
+
+            if ($sibling.getAttribute('data-form') === 'shorter') {
+                fullblog.more($sibling.getAttribute('x-data'));
+                $sibling.setAttribute('data-form', 'longer');
+                $target.innerHTML = "mniej";
+            } else {
+
+
+
+
+                fullblog.less($sibling.getAttribute('x-data'), $contents);
+
+
+
+                $sibling.setAttribute('data-form', 'shorter');
+                $target.innerHTML = "więcej";
+            };
+
+
+        };
+
+
+
+
+
+
+
+
+
+    }, false);
+
+    document.body.style.overflowX = "visible";
+
+
+    window.addEventListener('scroll', function (e) {
+
+        let doc = document.documentElement;
+
+        let top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+
+        //        debugge   r;
         if (top > 300) {
             $arrowUp.classList.add('visible');
         } else {
@@ -208,7 +351,7 @@ window.onload = () => {
 
     }, false);
 
-    $arrowUp.addEventListener('click', () => {
+    $arrowUp.addEventListener('click', function () {
         window.scroll({
             top: 0,
             left: 0,
@@ -217,151 +360,109 @@ window.onload = () => {
     }, false);
 
 
-    document.querySelector('aside').addEventListener('click', (e) => {
+
+
+
+
+
+
+    document.querySelector('aside').addEventListener('click', function (e) {
         let $target = e.target;
 
         if ($target.tagName !== 'LI') {
             return;
         };
-        
+
+        console.log($target.textContent);
+
         document.querySelector('#' + $target.getAttribute('x-data')).scrollIntoView({
             behavior: 'smooth'
         });
 
 
     }, false);
-
-    $changeCategory.addEventListener('mouseover', () => {
-        $changeCategory.children[0].classList.remove('hidden');
-    }, false);
-
-    $changeCategory.addEventListener('mouseout', () => {
-        $changeCategory.children[0].classList.add('hidden');
-    }, false);
-
-
-
-    document.getElementById('okCancel').addEventListener('click', function (e) {
-
-
-        if (e.target.innerHTML === 'OK') {
-            ajax = new __ajax('components/forum/addComment.php', {
-                value: 'POST',
-            });
-            ajax.setParameters({
-                content: $modalWindow.querySelector('textarea').value,
-                post_id: state.currentComment.post_id,
-                prev_forum_id: state.currentComment.prev_forum_id,
-                post_id: state.currentComment.post_id
-
-            });
-            ajax.get().then(function (data) {
-                $modalWindow.classList.remove('visible');
-            });
-        } else if (e.target.innerHTML === 'Cancel') {
-            $modalWindow.classList.remove('visible');
-        }
-
-    }, false);
-
-    $modalWindow.addEventListener('keyup', function (e) {
-        if (e.key === 'Escape') {
-            this.classList.remove('visible');
-        }
-    }, false);
-
-    $modalWindow.querySelector('textarea').addEventListener('focus', (e) => {
-
-        e.target.style.textAlign = 'left';
-        e.target.style.lineHeight = 'auto';
-        e.target.setAttribute('placeholder', '');
-        e.target.style.lineHeight = 'normal';
-
-    });
-
-    $modalWindow.querySelector('textarea').addEventListener('unfocusfocus', (e) => {
-
-        e.target.style.textAlign = 'left';
-        e.target.setAttribute('placeholder', '');
-
-    });
-
 };
 
 
 
-function getForum($target) {
 
-    let ajax = new __ajax('components/forum/getForum.php', {
-        value: 'POST'
+$modalWindow.addEventListener('keyup', function (e) {
+    if (e.key === 'Escape') {
+        this.classList.remove('visible');
+    };
+}, false);
+
+document.getElementById('okCancel').children[0].addEventListener('click', function () {
+
+    ajax = new __ajax('components/forum/addComment.php', {
+        value: 'POST',
+
     });
+
+    console.log(state.currentComment);
 
     ajax.setParameters({
-        forum_prev_id: $target.parentElement.getAttribute('x-data-id-comment')
+        content: $modalWindow.querySelector('textarea').value,
+        post_id: state.currentComment.post_id,
+        prev_forum_id: state.currentComment.prev_forum_id
+
     });
+
 
     ajax.get().then(function (data) {
-
-
-        let rows = JSON.parse(data),
-            $comment = null,
-            $login = null,
-            $date = null,
-            $content = null,
-            $plus = null,
-            $letComment = null;
-
-
-
-        for (let i = 0, max = rows.length; i < max; i++) {
-            $comment = document.createElement('div');
-            $comment.setAttribute('x-data-id-comment', rows[i]['forum_id']);
-            $comment.classList.add('clearfix');
-            $comment.classList.add('comment');
-
-            $login = document.createElement('div');
-            $login.classList.add('login');
-            $login.innerText = rows[i]['login'];
-
-            $date = document.createElement('div');
-            $date.classList.add('date');
-            $date.innerText = rows[i]['date'];
-
-            $content = document.createElement('div');
-            $content.classList.add('content_');
-            $content.innerText = rows[i]['content'];
-
-            $comment.appendChild($login);
-            $comment.appendChild($date);
-            $comment.appendChild($content);
-
-            if (typeof canComment !== 'undefined') {
-                $letComment = document.createElement('div');
-                $letComment.classList.add('addComment');
-                $letComment.innerHTML = translations['fullblog'][4];
-                $comment.appendChild($letComment);
-            }
-
-
-
-            if (rows[i]['has_children'] === 1) {
-                $plus = document.createElement('div');
-                $plus.classList.add('plus');
-                $plus.classList.add('load-more');
-                $plus.setAttribute('status', 'unloaded');
-                $plus.setAttribute('data-id', rows[i]['forum_id']);
-                $plus.innerText = '+';
-
-                $comment.appendChild($plus);
-
-            }
-
-            $target.appendChild($comment);
-
-        };
-
-
+        console.log(data);
     });
+
+
+
+}, false);
+
+document.getElementById('okCancel').children[1].addEventListener('click', function () {
+    $modalWindow.classList.remove('visible');
+
+}, false);
+
+
+function addPost(obj, callback) {
+    console.log(obj);
+    let logins = [];
+    let dates = [];
+    let contents_ = [];
+    let comments = [];
+    let pluses = [];
+    for (let i = 0, max = obj.length; i < max; i++) {
+        logins[i] = document.createElement('div');
+        logins[i].classList.add('login');
+        logins[i].innerHTML = obj[i].login;
+
+        dates[i] = document.createElement('div');
+        dates[i].classList.add('date');
+        dates[i].innerHTML = obj[i].date;
+
+        contents_[i] = document.createElement('div');
+        contents_[i].classList.add('content');
+        contents_[i].innerHTML = obj[i].content;
+
+        comments[i] = document.createElement('div');
+        comments[i].classList.add('comment');
+        pluses[i] = document.createElement('div');
+        pluses[i].setAttribute('data-id', obj[i]['id']);
+        pluses[i].innerHTML = '+';
+
+
+        comments[i].appendChild(logins[i]);
+        comments[i].appendChild(dates[i]);
+        comments[i].appendChild(contents_[i]);
+        comments[i].appendChild(pluses[i]);
+        comments[i].style.transform = 'translate(20px)';
+
+
+
+    };
+
+    console.log(comments);
+    callback(comments);
+
 
 
 }

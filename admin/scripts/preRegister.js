@@ -10,7 +10,7 @@
 
 
 
-        let ajax = new __ajax('preregisterUser.php', {
+        let ajax = new __ajax('ajaxRequests.php', {
             method: 'post'
         });
         ajax.setParameters({

@@ -1,10 +1,3 @@
-body {
-    height: 400vh;
-    width: 100vw;
-    overflow-x: hidden;
-}
-
-
 #introduction {
     > article {
         div {
@@ -13,12 +6,7 @@ body {
     }
 }
 
-#wrapper-0, #wrapper-1, #wrapper-2, #wrapper-3 {
-    overflow: hidden;
-}
-
 #wrapper-1 {
-//    top: 100vh;
     > section.inner > aside {
 
         // font-size: 10px;
@@ -29,62 +17,19 @@ body {
     height: 50vh;
 }
 
+#menu > ul {
+    background-color: rgba(51, 51, 51, 0.7);
 
-#wrapper-2 {
-    left: 0vw;
-    top: 200vh;
-}
+    > li:nth-child(1) > strong {
+        display: none;
+    }
 
-#wrapper-3 {
-    left: 0px;
-    top: 300vh;
-    .img-wrapper img {
-    width: 100vw;
-        height: auto;
-        left: 0px;
-}
-    #introduction {
-            max-width: 90vw;
-        padding-right: 0px;
-        left: 0px;
-        div {
-            max-width: 80vw;
-            margin-left: 0px;
-        }
+    > li:nth-child(2) > strong {
+        display: none;
+
+
     }
 }
-
-
-
-#menu {
-    
-    > ul {
-        background-color: rgba(51, 51, 51, 0.9);
-
-        > li:nth-child(1) > strong {
-            display: none;
-        }
-
-        > li:nth-child(2) > strong {
-            display: none;
-        }
-                
-    }
-    
-    &.hidden {
-        transition: all 1s ease-in;
-        transition-delay: 1s;
-        ul {
-//            animation-name: menuHidden;
-//            animation-duration: 3s;
-//            animation-fill-mode: forwards;
-//            animation-iteration-count: 1;
-//            animation-direction: normal;
-        }
-    }
-}
-
-
 
 strong {
     display: none;
@@ -99,36 +44,30 @@ strong {
     strong {
         display: inline;
     }
-    
-    .menu-label {
-        display: none;
-    }
-    
-    
+
     > .greetings {
         max-width: 100px;
-       // height: 100px;
+        height: 100px;
         font-size: 8px;
         margin-top: -40px;
         left: 30px;
         display: block;
         & > div {
-//            height: 60px;
+            height: 60px;
             font-weight: 900;
             margin-left: -25px;
             margin-top: -10px;
             box-shadow: 3px 3px 1px #222;
         }
         & > a {
-
-            transform: translate(10px, -10px);
+            margin-top: -12 px;
+            transform: translate(10px,-10px);
             padding: 5px;
-            background: rgba(0, 0, 0, .9);
+            background: rgba(0, 0, 0, .6);
             box-shadow: 3px 3px 1px #222;
         }
     }
 }
-
 
 
 @import 'partials/blog_lt700';

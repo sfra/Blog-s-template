@@ -1,23 +1,18 @@
 //let images = [];
 
-let config = {
-    contextMenu: false
-};
-
-let $form = document.createElement('form'), $contextMenu, translations = null;
-
+let config = {contextMenu: false};
+let $form = document.createElement('form');
 $form.method = 'post';
 $form.action = 'addPost.php';
-
 let $inputTitle = document.createElement('input');
 $inputTitle.name = 'title';
 let $inputContent = document.createElement('input');
 $inputContent.name = 'content';
 let $inputCategory = document.createElement('input');
-$inputCategory.name = 'category';
+$inputCategory.name = 'category'
 let $inputShorter = document.createElement('input');
 $inputShorter.name = 'shorter';
-let $tags = document.createElement('input');
+
 let $inputMainImage = document.createElement('input');
 $inputMainImage.name = 'mainImage';
 
@@ -25,30 +20,37 @@ $form.appendChild($inputTitle);
 $form.appendChild($inputContent);
 $form.appendChild($inputCategory);
 $form.appendChild($inputShorter);
-$form.appendChild($tags);
 $form.appendChild($inputMainImage);
 
 
+let $contextMenu=null;
+createContextMenu();
+function createContextMenu(){
+            $contextMenu = document.createElement('div');
+            $contextMenu.setAttribute('id','contextMenu');
+            $contextMenu.innerHTML = 'Kopiuj adres';
 
-
-(new __ajax('../config/mexico.json')).get().then(data=>{
-    (new __ajax(`../translations/${JSON.parse(data)['language']}.json`)).get().then(data=>{
-        translations = JSON.parse(data);
-            function createContextMenu() {
-                $contextMenu = document.createElement('div');
-                $contextMenu.setAttribute('id', 'contextMenu');
-                $contextMenu.innerHTML = translations['copy-address'];
-        
-        }
-        createContextMenu();
-
-    });
-
-});
+};
 
 window.onload = function () {
+    
+    
 
-    const $uploadedFiles = document.getElementById('uploaded-files');
+    
+    let $uploadedFiles = document.getElementById('uploadedFiles');
+    
+    let clearSession = ()=>{
+        for(let prop in sessionStorage){
+            delete(sessionStorage['prop']);
+        };
+    };
+
+    if (window.location.href.indexOf('?') !== -1) {
+
+        sessionStorage.setItem('images', sessionStorage.getItem('images') + '@' + window.location.href.split('?')[1].split('=')[1]);
+        window.location.href = 'edit.php';
+    };
+
 
     tinyMCE.activeEditor.getContent({
         format: 'raw'
@@ -57,10 +59,10 @@ window.onload = function () {
     if (sessionStorage.getItem('content') !== null) {
         tinyMCE.activeEditor.setContent(sessionStorage.getItem('content'));
 
-    }
+    };
 
 
-    const $sendImage = document.getElementById('send-image');
+    let $sendImage = document.getElementById('sendImage');
 
     $sendImage.addEventListener('submit', function () {
         tinyMCE.activeEditor.getContent({
@@ -69,13 +71,66 @@ window.onload = function () {
         sessionStorage.setItem('content', tinyMCE.activeEditor.getContent({
             format: 'raw'
         }));
-  
-    }, false);
+        //        sessionStorage.setItem('images', images);
 
 
-    document.querySelector('#uploaded-files > img').addEventListener('click', () => {
-        $uploadedFiles.classList.add('hidden');
     }, false);
+
+    if (sessionStorage.getItem('images') !== null) {
+        let images = sessionStorage.getItem('images').split('@');
+        let parrentOfCurrent;
+        let currentElement = null;
+        let closeButton = null;
+        let title = null;
+
+        for (let i = 1, max = images.length; i < max; i++) {
+            parentOfCurrent = document.createElement('div');
+            closeButton = document.createElement('img');
+            closeButton.src = '../images/cross_b.svg';
+            closeButton.classList.add('close');
+            parentOfCurrent.appendChild(closeButton);
+
+            currentElement = document.createElement('img');
+
+            currentElement.src = 'uploads/' + images[i];
+            parentOfCurrent.appendChild(currentElement);
+
+            title = document.createElement('div');
+            title.classList.add('title');
+            title.innerHTML = images[i];
+            parentOfCurrent.appendChild(title);
+
+            $uploadedFiles.appendChild(parentOfCurrent);
+
+            closeButton.addEventListener('click', function () {
+                console.log(this);
+                document.getElementById('uploadedFiles').removeChild(this.parentElement);
+
+
+                (function (image) {
+                    sessionStorage.setItem('images', sessionStorage.getItem('images').replace(image + '@', '').replace(image, ''));
+
+                })(images[i]);
+
+
+                if (sessionStorage.getItem('images')[sessionStorage.getItem('images').length - 1] === '@') {
+                    sessionStorage.setItem('images',
+                        sessionStorage.getItem('images').substring(0, sessionStorage.getItem('images').length - 1));
+                };
+
+                (function (image) {
+                    window.location.href = 'removeFile.php?file=' + image;
+                })(images[i]);
+
+
+            }, false);
+
+        };
+
+
+    };
+
+
 
     document.getElementById('save').addEventListener('click', function () {
 
@@ -89,19 +144,21 @@ window.onload = function () {
         let newName = null;
         let images = [];
 
-        rawContent = rawContent.replace(/(<img src="([^"]*)"([^>]+)>)/ig, (match, m, gr0, gr1) => {
-
-
+        rawContent = rawContent.replace(/(<img src="([^"]*)"([^>]+)>)/ig, (match, m, gr0, gr1)=>{
+            debugger;
+            console.log(arguments);
+            
+            //newName = `images/usersImages/${functions.genetareRandomId(70)}_${arguments[2]}`;
             newName = `${functions.genetareRandomId(70)}_${gr0}`;
 
             images.push({
                 old: gr0,
                 new: newName
             });
-            return `<img class="sizedependent" alt="users-image" srcc="[@images/usersImages/${newName}@]"${gr1} />`;
+            return `<img class="sizedependent" srcc="[@images/usersImages/${newName}@]"${gr1} />`;
         });
 
-
+        
         let $mainImage = document.getElementById('mainImage').value;
 
         let mainImageValue = $mainImage;
@@ -125,28 +182,35 @@ window.onload = function () {
 
 
         ajax.get().then(function (data) {
-
-            let ajaxAddPost = new __ajax('addPost.php', {
+            
+            let ajax2=new __ajax('addPost.php',{
                 value: 'POST'
             });
-
-            ajaxAddPost.setParameters({
-                title: $inputTitle.value,
+            
+            ajax2.setParameters({
+                title: $inputTitle.value, 
                 content: rawContent,
                 category: document.getElementById('category').value,
-                shorter: document.getElementById('shorter').value,
-                mainImage: 'images/usersImages/' + mainImageNewValue
-
+                shorter: document.getElementById('shorter').value, 
+                mainImage: 'images/usersImages/'+mainImageNewValue
+                                
             });
-
-            ajaxAddPost.get().then((data) => {
+            
+            ajax2.get().then((data)=>{
                 console.log(data);
+                
             });
-
+            
             $inputContent.value = rawContent;
+
             $inputCategory.value = document.getElementById('category').value;
             $inputShorter.value = document.getElementById('shorter').value;
             $inputMainImage.value = mainImageNewValue;
+
+//            $form.submit();
+
+
+
         });
 
 
@@ -155,157 +219,84 @@ window.onload = function () {
 
 
 
-
-
-    document.getElementById('wrapper-0').addEventListener('click', function (e) {
-
+    
+    
+    document.getElementById('wrapper-0').addEventListener('click',function(e){
+  
         let $target = e.target;
-        if (!config.contextMenu) return;
-        if ($target.getAttribute('id') == null || $target.getAttribute('id') !== 'imgWrapper') {
-            $contextMenu.parentElement.removeChild($contextMenu);
+        if(!config.contextMenu) return;
+        if($target.getAttribute('id')==null || $target.getAttribute('id')!=='imgWrapper'){                       $contextMenu.parentElement.removeChild($contextMenu);
 
-            config.contextMenu = false;
-            createContextMenu();
-
-        };
-    }, false);
-
-    $uploadedFiles.addEventListener('contextmenu', function (e) {
+            config.contextMenu=false;
+            createContextMenu();                                                                              
+                                                                                                
+        };   
+    },false);
+    
+    document.getElementById('wrapper-0').addEventListener('contextmenu', function (e) {
         let $target = e.target;
+        
 
-        if (config.contextMenu) {
+        
+        
+        if(config.contextMenu) {
             $contextMenu.parentElement.removeChild($contextMenu);
-            config.contextMenu = false;
+  //          $contextMenu.remove();
+            config.contextMenu=false;
+
             createContextMenu();
         }
-
-        if ($target.nodeName !== 'IMG') {
+        
+        
+        if($target.nodeName!=='IMG'){
             $contextMenu = document.getElementById('contextMenu');
-
-            if ($contextMenu !== null) {
+            
+            if($contextMenu!==null) {
 
                 $contextMenu.parentElement.removeChild($contextMenu);
                 config.contextMenu = false;
                 createContextMenu();
-            }
-
+            };
             createContextMenu();
-            //e.preventDefault(); //usunąć komentarz    
+            e.preventDefault(); //usunąć komentarz    
             return;
-        }
-
-        if (!config.contextMenu) {
+        };
+        
+        if(!config.contextMenu){
 
             let style = window.getComputedStyle($target);
 
-            $contextMenu.style.position = 'fixed';
-            $contextMenu.style.zIndex = '400';
-
-            $contextMenu.style.top = (e.pageY - 40) + 'px';
+            $contextMenu.style =`left: ${e.pageX-window.innerWidth/3}px; top: ${e.pageY-window.innerHeight/1.6}px;`;
+            
+            
             $target.parentElement.appendChild($contextMenu);
             config.contextMenu = true;
-            setTimeout(function () {
+            setTimeout(function(){
                 $contextMenu.classList.add('visible');
-
-            }, 100);
-
-            $contextMenu.addEventListener('click', function () {
+                
+            },100);
+            
+            $contextMenu.addEventListener('click',function(){
                 copyToClipboard($target.parentElement.querySelector('.title').innerText);
-
+                 
                 $contextMenu.classList.add('clicked');
-                let $parent = $contextMenu.parentElement;
-                setTimeout(function () {
-                    if (!config.contextMenu) return;
-                    $parent.removeChild($contextMenu);
-                    config.contextMenu = false;
-
-                    createContextMenu();
-
-                }, 100);
-
-            }, false);
-
-        }
-        //e.preventDefault();
-    }, false);
-
-    document.getElementById('imgs-list').addEventListener('click', () => {
-
-
-        let ajaxReaddir = new __ajax('../upload/upload.php?operation=edit&exec=readdir', {
-            method: 'post'
-        });
-
-
-        ajaxReaddir.get().then((data) => {
-
-
-            const images = JSON.parse(data);
-            let parrentOfCurrent;
-            let currentElement = null;
-            let closeButton = null;
-            let title = null;
+                let $parent = $contextMenu.parentElement; 
+                setTimeout(function(){
+                        if(!config.contextMenu) return;
+                        $parent.removeChild($contextMenu);
+                        config.contextMenu = false;
             
-
-            $uploadedFiles.innerHTML='<img class="close" height="20" width="auto" src="../images/cross_b.svg"/>';
-            
-            document.querySelector('.close').addEventListener('click',()=>{
-                $uploadedFiles.classList.add('hidden');
+                        createContextMenu();
+                    
+                },100);
+                
             },false);
-
-
-            for (let i = 0, max = images.length; i < max; i++) {
-                parentOfCurrent = document.createElement('div');
-                closeButton = document.createElement('img');
-                closeButton.src = '../images/cross_b.svg';
-                closeButton.classList.add('close');
-                parentOfCurrent.appendChild(closeButton);
-
-                currentElement = document.createElement('img');
-
-                currentElement.src = 'uploads/' + images[i];
-                parentOfCurrent.appendChild(currentElement);
-
-                title = document.createElement('div');
-                title.classList.add('title');
-                title.innerHTML = images[i];
-                parentOfCurrent.appendChild(title);
-
-                $uploadedFiles.appendChild(parentOfCurrent);
-
-                closeButton.addEventListener('click', (e) => {
-
-
-
-
-
-
-                    document.getElementById('uploaded-files').removeChild(e.target.parentElement);
-
-                    let ajaxRemoveFile = new __ajax('removeFile.php', {
-                        method: 'post'
-                    });
-
-                    ajaxRemoveFile.setParameters({
-                        file: e.target.parentElement.children[1].src.replace(/.*\/([^\/]*)$/, (match, gr) => {
-                            return gr;
-                        })
-                    });
-
-                    ajaxRemoveFile.get().then((data) => {
-                        console.log(data);
-                    });
-
-
-                }, false);
-
-            };
-
-
-
-        });
-        $uploadedFiles.classList.remove('hidden');
+            
+        };
+        e.preventDefault();
     }, false);
 
-   
+//    document.querySelector('input.mce-textbox').addEventListener('blur',function(e){
+//        console.dir(e);
+//    },false);
 };

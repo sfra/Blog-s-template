@@ -1,15 +1,8 @@
 @import 'partials/variables';
 @import 'partials/animations';
-
-body {
-    overflow-x: hidden;
-}
-
 #main-menu-button, .noselect  {
     display: none;
 }
-
-
 
 
 nav#menu, nav#menu.hidden {
@@ -22,31 +15,33 @@ nav#menu, nav#menu.hidden {
     float: right;
     margin-right: 0px;
     text-align: right;
-
+    
     &>ul {
         height: 50px;
         width: 100%;
-        transition: none;
-        animation: none;
+        transition: none !important;
+        animation: none !important;
         margin-top: 10px;
         &>li {
             width: 20%;
             display: inline;
             height: 50px;
             float: left;
-
-
+//                transition: none !important;
+//            animation: none !important;
+//            transition: all .5s ease-out;
             &> a {
                 margin-top: 0px;
                 font-size: 10px;
                 width: 100%;
+        //        transform: none !important;
+            //    animation: none !important;
                 height: 30px;
                 line-height: 30px;
 
             }
-
-
-
+            
+            
             &:hover {
                     transition: all .5s ease-in;
                 &>a {
@@ -55,13 +50,13 @@ nav#menu, nav#menu.hidden {
                     animation-direction: forwards;
                     animation-duration: .7s;
                     animation-fill-mode: forwards;
-                    animation-delay: .1s; //
+                    animation-delay: .1s; //   
                     background: $colorInv;
                     color: rgba(251, 251, 251, 0.8);
                     transition: all .5s ease-in;
                 }
             }
-
+            
         }
     }
 }

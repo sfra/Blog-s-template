@@ -1,0 +1,297 @@
+@import "_mixins.scss";
+@import "_variables.scss";
+@include keyframes(fadeIn) {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        display: block;
+    }
+}
+
+@include keyframes(activeArrow) {
+    0% {margin-left: 0px;}
+    30% {margin-left: 10px;}
+    45% {margin-left: 0px;}
+    60% {margin-left: 10px;}
+    75% {margin-left: 0px;}
+    90% {margin-left: 10px;}
+    100% {margin-left: 0px;}
+}
+
+
+
+@include keyframes(activeUpArrow) {
+    0% {margin-bottom: 0px;}
+    30% {margin-bottom: 10px;}
+    45% {margin-bottom: 0px;}
+    60% {margin-bottom: 10px;}
+    75% {margin-bottom: 0px;}
+    90% {margin-bottom: 10px;}
+    100% {margin-bottom: 0px;}
+    
+    
+    
+}
+
+@include keyframes(fadeOut) {
+    0% {
+        opacity: 1;
+        color: $liColorActive;
+    }
+    5% {
+        transform: translateX(-5px);
+    }
+    10% {
+        transform: translateX(5px);
+    }
+    12% {
+        color: lighten($liColorActive, 20);
+        transform: translateX(-10px);
+    }
+    14% {
+        transform: translateX(10px);
+    }
+    16% {
+        transform: translateX(-20px);
+    }
+    80% {
+        color: darken($liColorActive, 20);
+    }
+    99% {
+        height: 31px;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+@include keyframes(active) {
+    0% {
+        background-color: #444444;
+        color: #aabbcc;
+    }
+    20% {
+        //      background-color: #ccddbb;
+        background-color: #666666;
+        color: #99aabb;
+    }
+    80% {
+        //        background-color: #ddeeff;
+        background-color: #555555;
+        color: #88aabb;
+    }
+    90% {
+        //        background-color: #ddeeff;
+        background-color: #445566;
+        color: #ccbbdd;
+    }
+    100% {
+        //        background-color: #ffffff;
+        background-color: #888888;
+        color: #ffffff;
+    }
+}
+
+@include keyframes(closeButtonOver) {
+    0% {
+        border-color: $bgColor4;
+        color: $bgColor4;
+    }
+    50% {
+        border-color: $bgColor2;
+        color: $bgColor2;
+    }
+    100% {
+        border-color: $bgColor4;
+        color: $bgColor4;
+    }
+}
+
+@include keyframes(galWrapperClose) {
+    0% {
+        opacity: 1;
+        height: 100%;
+    }
+    25% {
+        height: 100%;
+    }
+    30% {
+        opacity: .7;
+        transform: rotateY(89.9deg);
+        height: 200px;
+    }
+    70% {
+        opacity: .7;
+        transform: rotateY(89.9deg);
+    }
+    100% {
+        opacity: .7;
+        height: 0px;
+        transform: rotateY(89.9deg);
+    }
+}
+
+@include keyframes(switchImage) {
+    0% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+        background: url(../media/images/abstract.png);
+    }
+}
+
+@include keyframes(switchImage1) {
+    0% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(90deg);
+    }
+    60% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+        background-image: url(../media/images/abstract.png);
+    }
+}
+
+@include keyframes(switchImage2) {
+    0% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(90deg);
+    }
+    60% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+        background: url(../media/images/abstract.png);
+        background-position: 0px 150px;
+    }
+}
+
+@include keyframes(switchImage3) {
+    0% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(90deg);
+    }
+    60% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+        background: url(../media/images/abstract.png);
+        background-position: 0px 75px;
+    }
+}
+
+@include keyframes(deactivateToggleNav) {
+    0% {
+        //width: 100%;
+    }
+    50% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+        transform: rotate(0deg);
+    }
+}
+
+@include keyframes(deactivateToggleNav1) {
+    0% {
+        transform: rotate(405deg);
+    }
+    50% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+        transform: rotate(0deg);
+    }
+}
+
+@include keyframes(deactivateToggleNav2) {
+    0% {
+        transform: rotate(-405deg);
+    }
+    50% {
+        //        width: 0%;
+    }
+    100% {
+        width: 100%;
+        transform: rotate(0deg);
+    }
+}
+
+@include keyframes(activateToggleNav) {
+    0% {
+        width: 100%;
+    }
+    50% {
+        transform: rotate(0deg);
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+        transform: translate(-5px, 10px) rotate(405deg);
+    }
+}
+
+@include keyframes(activateToggleNav2) {
+    0% {
+        width: 100%;
+    }
+    1% {
+        width: 100%;
+    }
+    50% {
+        transform: rotate(0deg);
+        width: 0px;
+    }
+    100% {
+        width: 0px;
+        // display: none;
+    }
+}
+
+@include keyframes(activateToggleNav3) {
+    0% {
+        width: 100%;
+    }
+    50% {
+        width: 0%;
+        transform: rotate(0deg);
+    }
+    100% {
+        width: 100%;
+        transform: translate(-5px, -10px) rotate(-405deg);
+    }
+}
+
+@include keyframes(hoverLink) {
+    0% {
+        color: darken($liBg, 40%);
+    }
+    10% {
+        color: darken($liBg, 50%);
+    }
+    30% {
+        color: darken($liBg, 10%);
+    }
+    100% {
+        color: darken($liBg, 20%);
+    }
+}

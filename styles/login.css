@@ -1,0 +1,69 @@
+body {
+  height: 100vh; }
+  body.ff input {
+    left: -35px; }
+
+nav#menu {
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  margin: 0px;
+  background: rgba(51, 51, 51, 0.5); }
+  nav#menu > ul.links {
+    height: 100%;
+    margin-top: 80px; }
+    nav#menu > ul.links > li:nth-child(1) > hr:nth-child(1) {
+      top: 110px;
+      left: 170px;
+      transition: all 1s linear;
+      transition-delay: .65s; }
+    nav#menu > ul.links > li:nth-child(1) > hr:nth-child(3) {
+      top: 142px;
+      left: 170px;
+      transition: all 1s linear;
+      transition-delay: .6s; }
+    nav#menu > ul.links > li:nth-child(2) > hr:nth-child(1) {
+      top: 230px;
+      left: 170px;
+      transition: all 1s linear;
+      transition-delay: .65s; }
+    nav#menu > ul.links > li:nth-child(2) > hr:nth-child(3) {
+      top: 262px;
+      left: 170px;
+      transition: all 1s linear;
+      transition-delay: .6s; }
+    nav#menu > ul.links > li hr {
+      opacity: 1; }
+    nav#menu > ul.links > li > input {
+      margin-top: 10px;
+      float: left;
+      position: relative; }
+  nav#menu > ul.links.deactivated > li:nth-child(1) > hr:nth-child(1) {
+    top: 110px;
+    left: -200px; }
+  nav#menu > ul.links.deactivated > li:nth-child(1) > hr:nth-child(3) {
+    top: 142px;
+    transform: translateX(1000px); }
+  nav#menu > ul.links.deactivated > li:nth-child(2) > hr:nth-child(1) {
+    top: 230px;
+    left: -200px; }
+  nav#menu > ul.links.deactivated > li:nth-child(2) > hr:nth-child(3) {
+    top: 262px;
+    transform: translateX(1000px); }
+  nav#menu > ul.links.deactivated > li > input {
+    margin-top: 10px;
+    float: left; }
+  nav#menu > ul.links.deactivated > li hr {
+    opacity: 0; }
+
+hr {
+  position: absolute;
+  width: 188px; }
+
+nav.back {
+  z-index: 700; }
+
+#header {
+  z-index: 400; }
+
+/*# sourceMappingURL=login.css.map */

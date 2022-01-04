@@ -2,19 +2,10 @@
 error_reporting(E_ALL);
     session_start();
     include_once 'permissions.php';
-    $config = file_get_contents('../../config/mexico.json');
-    $configJSON = json_decode($config, true);
-    
-    $translations = json_decode(file_get_contents("../translations/{$configJSON['language']}.json"),true);
-    $min='';
-
-    if ($configJSON['env']==='prod') {
-        $min='.min';
-    };
-
 ?>
     <!DOCTYPE html>
     <html>
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,21 +14,20 @@ error_reporting(E_ALL);
 
 
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Josefin+Sans" rel="stylesheet" />
-        <link rel="stylesheet" href="../styles/edit.min.css" />
-        <script type="application/javascript" src="../vendor/__ajax<?= $min?>.js"></script>
+        <link rel="stylesheet" href="../styles/edit.css" />
+        <script type="application/javascript" src="../vendor/__ajax.js"></script>
         <script type="application/javascript" src="../scripts/helpers/functions.js"></script>
         <script type="application/javascript" src="tinymce/js/tinymce/tinymce.min.js"></script>
-        <script type="application/javascript" src="edit<?= $min?>.js"></script>
+        <script type="application/javascript" src="edit.js"></script>
 
         <script>
             tinymce.init({
                 selector: '#mytextarea',
                 plugins: 'image imagetools code media link colorpicker paste table textcolor',
-                language: '<?= $translations['language-code']?>',
-                height: '300px',
+                language: 'pl',
                 relative_urls: false,
                 remove_script_host: true,
-                document_base_url: "/mexico/template/edit/uploads/",
+                document_base_url: "/mexico3/template/edit/uploads/",
                 convert_urls: true,
                 skin: 'mexico'
             });
@@ -47,37 +37,39 @@ error_reporting(E_ALL);
 
     <body>
         <div id='wrapper-0'>
-            <p><?= $translations["posts-editor"]?></p>
+            <p>Edytor postów</p>,
 
             <?php
-            include_once $configJSON['password_path'];
-            $mysqli = new mysqli('localhost',$user,$password,$configJSON['db_name']);
-
-            $sql = $mysqli->query("SELECT * FROM categories");
-         
- 
-            
-
-        echo <<<EOT
-    <div class="row">
-        <p class="title">{$translations["posts-data"]}</p>
-    </div>
-    <div class="post-data">
-    <input class="slide-up" id="title" type="text" placeholder="{$translations["posts-title"]}" />
-    <input class="slide-up" id="mainImage" type="text" placeholder="{$translations["posts-main-image"]}" />
     
-           <select id="category">
-EOT;
+//        if($_SESSION['isAdmin']) {
+//            echo '/<p style="color: red">Edytor postów</p>';
+//        };
+    
 
-while(($row=$sql->fetch_assoc())!==null){
-
-    echo "<option>{$row["name"]}</option>";
-
-}
-
-echo <<<EOT
-
+    echo <<<EOT
+ <div class="row">
+  <p>Dane postu</p>
+</div>
+<div class="row">
+  <span>
+    <input class="slide-up" id="title" type="text" placeholder="tytuł postu" /><label for="card">tytuł</label>
+  </span>
+  <span>
+    <input class="slide-up" id="mainImage" type="text" placeholder="Obraz główny postu" /><label for="expires">Obraz główny</label>
+  </span>
+  <span>
+       <select id="category">
+        <option>zupy</option>
+        <option>przystawki</option>      |
+`       <option>drugie dania</option>
+        <option>desery</option>
+        <option>salsas y salsas</option>
+        <option>kolacje</option>
+        <option>przekąski</option>
+        <option>święta</option>
+        <option>inne</option>
         </select>
+    </span>
 </div>
 EOT;
     
@@ -85,34 +77,37 @@ EOT;
     ?>
 
 
-                <button id="save" class="button"><?= $translations["save"]?></button>
-                <a href="../index.php" id="back"><button class="button"><?= $translations["back"]?></button></a>
 
-               <div class="row">
-                    <span>
-                        <textarea  id="shorter" type="text" placeholder="<?= $translations["short-version"]?>"  class="slide-up" ></textarea>
-                    </span>
-                    <span>
 
-                    <!-- <input type="text" class="slide-up" name="tags" placeholder="tags" /> -->
+                <button id="save">zapisz post</button>
+                <a href="../index.php" id="back"><button>Wróć</button></a>
 
-                <form id="send-image" action="../upload/upload.php?operation=edit" method="post" enctype="multipart/form-data">
-                <?= $translations["choose-image"]?>
-                    <input type="file" name="fileToUpload" id="fileFileToUpload" />
-                    <input class="save" type="submit" value="<?= $translations["save-image"]?>" name="submit" />
+                <form method="post">
+                    <textarea id="mytextarea">Hello, World!</textarea>
                 </form>
-                    <div id="imgs-list"><?= $translations["images-lists"]?></div>
+                <div class="row">
+                    <span>
+    <input id="shorter" type="text" placeholder="Skrócona wersja"  class="slide-up" />
+<label for="card">skrócona wersja</label>
+
+  </span>
+                    <span>
+<!--                <input id="shorter" type="text" placeholder="Skrócona wersja" />-->
+
+
+
+                <form id="sendImage" action="upload.php" method="post" enctype="multipart/form-data">
+                    Wybierz obraz do zapisania:
+                    <input type="file" name="fileToUpload" id="fileToUpload">
+                    <input type="submit" value="Zapisz obraz" name="submit">
+                </form>
+
+                <div id='uploadedFiles'>
+
+                </div>
                     </span>
                 </div>
-                <form method="post" id="editor">
-                    <textarea id="mytextarea"></textarea>
-                </form>
- 
         </div>
-
-                <div class="hidden" id='uploaded-files'>
-                <img class="close" height="20" width="auto" src="../images/cross_b.svg"/>
-                </div>
     </body>
 
     </html>

@@ -1,54 +1,10 @@
-body {
-    overflow-x: hidden;
-}
-
-
 #wrapper > aside {
 
 //    position: relative;
     z-index: 300;
-    transform: none;
-    width: 10%;
-    overflow-x: hidden;
-    
-    &> * > * {
-        display: none !important;
-    }
-    &:hover {
-        width: 100%;
-         &> * > * {
-        display: block !important;
-    }
-    
-    
-    }
     > ul {
         > li {
-            height: 40px !important;
             color: #000000;
         }  
-    }
-
-    #change-category .tip>*>* {
-        height: 35px;
-        line-height: 35px;
-        a {
-            height: 35px;
-        }
-    }
-
-}
-
-
-#arrow-up {
-    position: fixed;
-    transform: none;
-    
-    right: 30px !important;
-    width: 40px !important;
-    height: 40px !important;
-    z-index: 600;
-    &.visible {
-        //left: 10px;
     }
 }

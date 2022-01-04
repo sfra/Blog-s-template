@@ -1,15 +1,14 @@
 @import 'partials/variables';
 @import 'partials/animations';
-@import 'partials/mixins';
-
 
 html,
 body {
     height: 100%;
     box-sizing: border-box;
     width: 100%;
-    overflow-x: visible;
+    overflow-x: hidden;
 }
+
 
 
 body {
@@ -37,8 +36,7 @@ h1 {
     background: rgba(255, 255, 255, 1);
     margin-top: 260px;
     transform: translateY(170px);
-
-    >* {
+    > * {
         // margin-bottom: 20px;
     }
 
@@ -50,16 +48,16 @@ h1 {
 
 
 #header nav {
-    .nav-trigger li {
+    .navTrigger li {
         background: $colorInv;
     }
 
-    >ul {
+    > ul {
         background-color: rgba(210, 210, 210, 0);
     }
 }
 
-nav#menu>ul>li:hover>a {}
+nav#menu > ul > li:hover > a {}
 
 
 
@@ -68,29 +66,26 @@ nav#menu>ul>li:hover>a {}
 
 nav#menu {
     transition: all 1s ease-out;
-
-    >ul {
+    > ul {
         background-color: rgba(210, 210, 210, 0);
-
-        >li {
-            >a {
+        > li {
+            > a {
                 color: $colorInv;
 
             }
-
-            &:hover>a {
+            &:hover > a {
                 //                color: rgba(10,10,10,1);
                 color: $color0;
             }
         }
-
+    
         &.hidden {
             animation: none !important;
-
+            
             &>li {
-
-                opacity: 0;
-                transition: all .3s ease-out;
+                
+            opacity: 0;
+            transition: all .3s ease-out;
             }
         }
     }
@@ -99,7 +94,7 @@ nav#menu {
 
 @media #{$tablet} {
     nav#menu {
-        >ul {
+        > ul {
             background-color: rgba(210, 210, 210, 0);
         }
     }
@@ -114,21 +109,17 @@ nav#menu {
 
 
 #header {
-    >a {
+    > a {
         color: $colorInv;
     }
-
     background: rgba(200, 200, 200, 0);
     color: $colorInv;
-
-    >nav>div>div>i {
+    > nav > div > div > i {
         background-color: $colorInv !important;
     }
-
-    >* {
+    > * {
         color: $colorInv;
     }
-
     .noselect {
         color: $colorInv;
     }
@@ -136,7 +127,6 @@ nav#menu {
 
 
 body {
-    font-family: 'Josefin Sans', sans-serif;
 
     color: #000000;
 }
@@ -150,17 +140,15 @@ body {
 
 .image-wrapper {
     width: 100%;
-    margin-top: 40px;
-
     img {
 
         display: block;
-        margin-right: 0px;
-        width: 100%;
+        margin: auto;
+
         height: auto;
         max-height: 100%;
 
-       
+        width: auto;
         max-width: 100%;
     }
 
@@ -170,18 +158,26 @@ body {
 .title {
     height: 100px;
     line-height: 100px; //background: rgba(240,240,240,.4);
-    color: lighten($colorInv, 100%);
+    color: darken($colorInv, 20%);
     text-align: justify;
     font-weight: 300;
     transform: translateY(-100px);
     font-size: 30px;
-
-    text-transform: uppercase;
-  
-
-    background: rgba(0,0,0,.4);
-    padding-left: 50px;    
-
+    &::first-letter {
+        text-transform: uppercase;
+    }
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,7f7f7f+91,ffffff+100 */
+    background: rgb(255, 255, 255);
+    /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(127, 127, 127, 1) 91%, rgba(255, 255, 255, 1) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(127, 127, 127, .6) 91%, rgba(255, 255, 255, 1) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(127, 127, 127, .6) 91%, rgba(255, 255, 255, .6) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0);
+    /* IE6-9 */
+    //margin: 20px;
 }
 
 .time {
@@ -198,54 +194,48 @@ body {
         font-weight: 400;
         font-size: 18px;
         color: darken(rgba(115, 101, 67, 1), 20%);
-
+    
 
         -webkit-font-smoothing: subpixel-antialiased;
     }
-
-
-
+    
+    
     .more {
-        //            position: relative;
-        //            left: 80%;
-        position: relative;
-        top: -15px;
-        padding: 10px;
-        user-select: none;
-        cursor: pointer;
-        float: right;
-        //background: rgba(142, 29, 7, 1);
-        color: lighten(rgba(0, 0, 0, 1), 50%);
-        animation-name: shadowDownMore, shadowDownBrownMore;
+            //            position: relative;
+            //            left: 80%;
+            position: relative;
+            top: -15px;
+            padding: 10px;
+            user-select: none;
+            cursor: pointer;
+            float: right;
+            background: rgba(142, 29, 7, 1);
+            color: lighten(rgba(115, 101, 67, 1), 50%);
+            animation-name: shadowDownMore,shadowDownBrownMore;
+        
+                animation-duration: .5s, 1s;
+                animation-fill-mode: forwards, forwards;
+                animation-direction: forwards,forwards;
+//            animation-name: shadowDownMore;
+//                animation-duration: .5s;
+//                animation-fill-mode: forwards;
+//                animation-direction: reverse;
 
-        animation-duration: .5s, 1s;
-        animation-fill-mode: forwards, forwards;
-        animation-direction: forwards, forwards; //            animation-name: shadowDownMore;
-
-        //                animation-duration: .5s;
-        //                animation-fill-mode: forwards;
-        //                animation-direction: reverse;
-        &:hover {
-            animation-name: shadowDownMoreRev, shadowDownMoreRev;
-            animation-duration: 1s, 1s;
-            animation-fill-mode: forwards, forwards;
-            animation-direction: forwards, forwards;
-
+        
+            &:hover {
+            animation-name: shadowDownMoreRev,shadowDownMoreRev;
+                animation-duration: 1s, 1s;
+                animation-fill-mode: forwards,forwards;
+                animation-direction: forwards, forwards;
+                
+        }
+        //
         }
 
-        //
-    }
-
-    //    *[data-form='shorter'] {
-    //        //height: 300px;
-    //    }
-    //
-    //    *[data-form='longer'] {
-    //        transform: all 1s ease-in;
-    //        height: auto;
-    //    }
-    //
-    &>.forum {
+    
+    
+    
+    & > .forum {
         margin-top: 30px;
 
         p {
@@ -257,7 +247,6 @@ body {
             transition: all 1s ease-out;
             font-size: 40px;
             transform: translateY(140px);
-
             &:hover {
                 transition: all 1s ease-in;
                 color: lighten($color4, 20%);
@@ -265,7 +254,7 @@ body {
         }
 
         &.hidden {
-            &>.comment {
+            & > .comment {
                 //                opacity: 0;
                 //                height: 0px;
                 display: none;
@@ -273,63 +262,59 @@ body {
         }
 
         color: rgba(0, 0, 0, 1);
-
-        &>.nrOfComments {
+        & > .nrOfComments {
             float: right;
-            margin-top: 20px;
         }
-
-
-        //        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gcfFQsbXn76TAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAASSURBVAjXY2BgYPjP1NvbywAACwMCqbcGRdwAAAAASUVORK5CYII=
         & .comment {
             opacity: 1;
             margin: 20px auto;
-            background: none;
-            color: #000000;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gcfFQsbXn76TAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAASSURBVAjXY2BgYPjP1NvbywAACwMCqbcGRdwAAAAASUVORK5CYII=');
-            background-repeat: repeat-x;
-            min-height: 40px;
-            padding: 20px 15px;
+            background: darken($color1, 10%);
+            color: darken($color3, 70%);
+
+
+            padding: 20px;
 
 
 
-            &>.content_ {
-                color: #000000;
-                float: left;
-                cursor: text;
-                margin-top: 10px;
+            & > .content_ {
+                color: lighten($color1, 80%);
             }
-
+            & .comment {
+                margin-right: 0px;
+                .content {
+                    color: #000000;
+                }
+            }
             & .comment.hidden {
                 display: none;
             }
 
-            .plus {
-                text-align: right !important;
-                clear: both; //                position: absolute;
-                //                margin-left: 100%;
-                overflow: hidden;
-                right: 0px;
-                cursor: pointer; //float: right;
+            & > .loadMore,
+            .loaded {
+                margin: -10px 5px 20px;
+                float: none;
+//                font-size: 10000px;
+                cursor: pointer;
+                transition: all .5s ease-out;
+                text-align: right;
+                pa
 
-                * {
-                    text-align: left;
+                &:hover {
+                    color: lighten($color4, 20%);
+                    transition: all .5s ease-in;
                 }
-
-
             }
 
-            &>.login {
+            & > .login {
                 transform: translateY(5px);
                 float: right;
-                margin-right: 10px;
             }
         }
-
-        .firstone {
-            top: 7px;
+        .date {
+            padding: 5px;
+            background-image: url('../images/line.png');
+            background-repeat: repeat-x; //            border-top: solid 1px #000000;
         }
-
     }
 
 
@@ -345,7 +330,7 @@ hr {
 }
 
 
-#arrow-up {
+#arrowUp {
     position: fixed;
     z-index: 500;
     bottom: 10px;
@@ -355,8 +340,7 @@ hr {
     transform: translateX(100px) scaleY(0);
     opacity: 0;
     transition: all 1s ease-out;
-
-    >svg {
+    > svg {
         width: 40px;
         height: 40px;
         transform: rotate(-90deg);
@@ -374,14 +358,11 @@ hr {
     min-height: 100%;
     /* equal to footer height */
     margin-bottom: -3em;
-
     &:after {
         content: "";
         display: block;
     }
-
-    &>aside {
-
+    & > aside {
         //  background: darken($color4,20%);
         background: rgba(255, 255, 255, 0.3);
         float: right;
@@ -395,90 +376,11 @@ hr {
         transition: all .5s ease-out;
 
 
-        .aside-category {
-            margin-left: 20px;
-            display: block;
-            float: left;
-            font-size: 12px;
-        }
-
-        #change-category {
-            display: block;
-            float: right;
-            text-decoration: underline;
-
-            font-size: 12px;
-            cursor: pointer;
-
-            .tip {
-                width: 100px;
-                position: absolute;
-                top: 45px;
-                left: 280px;
-                padding: 2px;
-
-                @media(max-width: 700px) {
-
-                    float: right;
-                    right: 10px;
-                    left: auto;
-
-                }
-
-                &>* {
-                    color: #ffffff;
-
-                    text-align: right;
-
-                    &>* {
-
-                        float: left;
-                        width: 100%;
-                        display: block;
-                        line-height: 15px;
-                        font-size: 10px;
-                        height: 15px;
-                        transition: all .5s ease-out;
-                        margin-bottom: 2px;
-                        animation-name: shadowDownMoreRev, shadowDownMoreRev;
-                        animation-duration: 3s, 1s;
-                        animation-fill-mode: forwards, forwards;
-
-                        a {
-                            text-decoration: none;
-                            color: darken(#ffffff,10%);                                
-
-                        }
-
-                        &:hover {
-                            //                            background-color: $color1;
-                            animation-name: shadowDownMore, shadowDownBrownMore;
-                            animation-duration: 3s, 1s;
-                            animation-fill-mode: forwards, forwards;
-
-                            a {
-                                color: #ffffff;                                
-                            }
-
-                        }
-
-                    }
-
-                }
-
-
-
-            }
-        }
-
         #contents {
             float: right;
-            width: 70%;
+            width: 70%; //color: #ffffff;
         }
-
-
-
-        &>div {
+        & > div {
 
             height: 20px;
             line-height: 20px;
@@ -492,57 +394,56 @@ hr {
 
             padding: 5px 15px;
 
-            border-radius: 5px 0px 0px 5px; //            & > .arrow-left
-
-            &>p {
-                text-align: right;
-                font-family: "Josefin Sans", sans-serif;
-                float: left;
-                margin-left: 20px; // font-variant: small-caps;
-            }
+            border-radius: 5px 0px 0px 5px; //            & > .arrow-left {
+            //                position: relative;
+            //                top: -20px;
+            //                left: -10px;
+            //                width: 0;
+            //                height: 0;
+            //                border-top: 10px solid transparent;
+            //                border-bottom: 10px solid transparent;
+            //
+            //                border-right: 10px solid $color1;
+            //                
+            //            }
         }
-
         ul {
             opacity: .3;
         }
-
-        background-color: rgba(255,255,255,.1);
-
+                    background-color: rgba(255, 255, 255, .1);
         &:hover {
-            transition: transform .5s ease-in, background 1s cubic-bezier(0.97, -0.16, 1, 1);
+            transition: transform .5s ease-in, background 1s cubic-bezier(0.97,-0.16, 1, 1);
             transform: translate(0px);
             opacity: 1; //background: rgba(210, 210, 210, .9);
             background-color: rgba(255, 255, 255, .9);
-
-            &>div {
+            & > div {
                 left: 0px;
                 transition: all .3s ease-in;
                 transform: translate(0px);
             }
-
             ul {
                 opacity: 1;
-                color: #000000; //                color: lighten($color1, 10%);
+                color: #000000;
+                //                color: lighten($color1, 10%);
             }
         }
 
-        >ul {
+        > ul {
 
             margin: 50px 15px;
             list-style-type: none;
-
-            &>li {
+            & > li {
                 margin: 15px 5px;
-               // border-bottom: solid 1px #000000;
+                border-bottom: solid 1px #000000;
                 height: 20px;
                 line-height: 20px;
                 cursor: pointer;
                 transition: all .3s ease-out;
-                padding: 6px; //box-shadow: inset 0px 0px 1px 2px
+                padding: 6px; //box-shadow: inset 0px 0px 1px 2px 
                 width: 100%; //height: 30px;
                 display: block;
                 margin-top: 10px;
-               // border-bottom: 1px solid #464b3c;
+                border-bottom: 1px solid #464b3c;
                 text-align: center;
                 text-decoration: none;
                 letter-spacing: .1em;
@@ -550,23 +451,30 @@ hr {
                 transition: all 1s ease-out;
                 font-variant: small-caps;
                 font-stretch: normal;
-                font-size: 14px; //                transition: transform .5s ease-in, font-stretch .5s ease-in, background 1s cubic-bezier(0.97,-0.16, 1, 1);
-                transition: all .5s cubic-bezier(0.97, -0.16, 1, 1);
-
+                font-size: 14px;
+//                transition: transform .5s ease-in, font-stretch .5s ease-in, background 1s cubic-bezier(0.97,-0.16, 1, 1);
+                transition: all .5s cubic-bezier(0.97,-0.16, 1, 1);
+                
                 &:hover {
                     font-stretch: extra-expanded;
                     letter-spacing: .3em;
                     font-weight: 800;
-                    transition: all .7s cubic-bezier(0.47, -0.64, 1, 1); //                    height: 25px;
-
+                    transition: all .7s cubic-bezier(0.47,-0.64, 1, 1); //                    height: 25px;
+                    //                    line-height: 25px;
+                    //                    animation-name: shadowUp;
+                    //                    animation-iteration-count: 1;
+                    //                    animation-direction: normal;
+                    //                    animation-duration: 3s;
+                    //                    animation-fill-mode: forwards;
+                    //                    animation-delay: .1s; //                    box-shadow: inset 400px 0px 1px 2px rgba(14,14,14,.5);
+                    //                    transition: none !important;
+                    //                    color: darken($color1, 40%); //                    background: darken(rgba(210, 210, 210, .9),40%);
                 }
             }
         }
     }
 
     .greetings {
-
-
         a {
             color: #000000;
         }
@@ -591,10 +499,8 @@ hr {
     position: fixed;
     opacity: 0;
     transition: all 1s ease-out;
-
     &.visible {
         display: flex;
-        transition: all 1s ease-in;
         justify-content: center;
         position: fixed;
         top: 0px;
@@ -605,8 +511,7 @@ hr {
         transition: all 1s ease-in;
         background-color: rgba(22, 22, 22, .7);
         color: #ffffff;
-        z-index: 500;
-
+        z-index: 100;
 
     }
 
@@ -617,15 +522,11 @@ hr {
         width: 80%;
         min-width: 100px;
         margin: 0 auto;
-        position: relative;
+        position: absolute;
         top: 100px;
         height: auto;
-        color: #ffffff; //        overflow: scroll;
-        max-height: 200px;
+        color: #ffffff;
 
-        &>* {
-            margin-left: 10px;
-        }
 
         .login {
             width: 40% !important;
@@ -637,63 +538,40 @@ hr {
 
             text-align: left;
         }
-
         .date {
             width: 40%;
             position: absolute;
-            right: 0px;
+            right: 10px;
             float: right;
             margin: 0px;
             display: inline;
             background: $color2;
 
         }
-
         .content {
             //width: 100%;
-            margin: 20px 0px;
+            margin: 20px;
             padding-top: 20px;
             padding-bottom: 20px;
-            z-index: 700;
             padding-left: 10px;
-            padding-right: 10px; //            margin-top: 20px;
+            padding-right: 10px;
+            //            margin-top: 20px;
             margin-bottom: 0px;
             background: lighten($color2, 20%);
-            text-align: justify; //text-transform: capitalize;
-
-            img {
-                position: relative;
-                display: block;
-                float: right;
-                cursor: pointer;
-                transition: all 1s ease-out;
-
-                &:hover {
-                    animation-name: activeArrowUp;
-                    animation-direction: normal;
-                    animation-duration: 1s;
-                    animation-fill-mode: forwards; //                    transition: all 1s ease-in;
-                    //                    margin-top: 10px;
-                    //                    color: $color2;
-                }
-            }
+            text-align: justify;
         }
     }
 
 
 
-    &>textarea {
+    & > textarea {
         position: absolute;
-        top: 250px;
+        top: 300px;
         width: 80%;
-        min-height: 200px;
-        line-height: 100px;
-        text-align: center; //        background: black;
+        min-height: 100px; //        background: black;
         //        color: #ffffff;
         //        display: flex;
         justify-content: center;
-
-
     }
 
     #okCancel {
@@ -703,7 +581,6 @@ hr {
         text-align: right;
         display: flex;
         justify-content: center;
-
         div {
             width: 80px;
             text-align: center;
@@ -712,8 +589,6 @@ hr {
             padding: 10px;
             cursor: pointer;
             transition: all .5s ease-out;
-            background-color: rgba(22, 22, 22, 0);
-            outline: 1px solid #ffffff;
 
             &:hover {
                 background: #ffffff;
@@ -730,7 +605,7 @@ hr {
     }
 }
 
-.hidden[data-id]>* {
+.hidden[data-id] > * {
     display: none;
 }
 
@@ -744,8 +619,7 @@ hr {
     text-align: center;
     cursor: pointer; //    background-color: lighten($color2, 40%);
     border-radius: 5px;
-    margin: 40px auto auto 10px;
-    float: right;
+    margin: 10px auto;
     padding: 8px;
     transition: all .5s ease-out;
     font-weight: 800;
@@ -755,8 +629,6 @@ hr {
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
-    background-clip: #ffffff;
-
 
     &:hover {
         transition: all .5s ease-in;
@@ -767,7 +639,7 @@ hr {
     //                position: re;
     //                left: 10px;
     div:nth-child(1) {
-        &>input {
+        & > input {
             //height: 300px;
         }
 
@@ -791,13 +663,4 @@ hr {
     font-size: 13px;
     line-height: 3em;
     padding-left: 40px;
-}
-
-
-@media(max-width: 700px) {
-    @import 'fullblog_lt700';
-}
-
-@media(min-width: 701px) {
-    @import 'fullblog_gt700';
 }

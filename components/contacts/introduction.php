@@ -1,4 +1,3 @@
-<!--
 <div id="background-wrapper">
             <div class="img-wrapper">
                 <img src="images/fasola2.png" />
@@ -15,4 +14,4 @@
         </section>
         
        
-    <hr />-->
+    <hr />

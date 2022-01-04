@@ -1,6 +1,6 @@
-<div id="background-wrapper2">
+<div id="background-wrapper">
     <div class="img-wrapper">
-        <img srcc="[@images/main.jpg@]" alt="main-image" class="sizedependent" style="top:0px" />
+        <img srcc="[@images/fasola.png@]" class="sizedependent" style="top:0px" />
         <div id="img-shadow">
         </div>
     </div>
@@ -9,8 +9,8 @@
 </div>
 <section id="introduction">
     <article>
-        <div><?= $translations["introduction"][0]?></div>
-        <div> <?= $translations["introduction"][1]?>
+        <div>Kuchnia meksykańska. Przepisy na najlepsze dania kuchni meksykańskiej i tex-mex. Tacos, guacamole, chili con carne, e,mpanadas, burritos, faszerowane papryki, indyk w sosie mole poblano i wiele więcej!</div>
+        <div>...zobacz więcej
             <div id="arrow-wrapper"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" viewBox="0 0 40 40" enable-background="new 0 0 129 129" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="arrows.svg" width="40" height="40">
   <metadata
      id="metadata16">
@@ -18,7 +18,10 @@
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
-
+<!--
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+-->
         <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>

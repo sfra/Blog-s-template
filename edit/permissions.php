@@ -1,14 +1,8 @@
 <?php 
     
-    $config = file_get_contents('../../config/mexico.json');
-
-
-    $configJSON = json_decode($config, true);
-
-
-    include_once $configJSON['password_path'];    
-    //include_once '/home/szymon/pass/02.php';
-    $mysqli = new mysqli('localhost',$user,$password,$configJSON['db_name']);
+    
+    include_once '/home/szymon/pass/02.php';
+    $mysqli = new mysqli('localhost',$user,$password,'mexico');
     if($mysqli->error) {
         echo "MySQL error";
     }

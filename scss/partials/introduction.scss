@@ -1,82 +1,66 @@
-#introduction {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 32px;
-    color: #ffffff;
-    padding-top: 40px;
-    height: 400px;
-    width: 100%;
-    transition: all 1s ease-in;
-    right: 60px;
-    top: 140px;
-    height: 400px;
-    overflow: hidden;
-    float: right; //      top: 70px;  
-    z-index: 15;
-     > div {
-         color: #ffffff;
-         text-shadow: 2px 2px 1px #000000;  
-     }
-    >article {
-      
-        background-color: rgba(0, 0, 0, .7);
-        padding: 5px 5px 10px 5px;
-        width: 100%;
 
-        //            font-style: italic;
-        >div:nth-child(1) {
-            height: 230px;
-            padding-top: 40px;
-            padding-left: 40px;
-            @media (max-width: 700px) {
-                width:80%;
-                margin-left:0px;
+
+
+#introduction {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 32px;
+        color: #ffffff;
+        background: rbga(0,0,0,1);
+        //        position: absolute;
+        height: 400px;
+        width: 100%;
+        transition: all 1s ease-in;
+        right: 60px;
+        
+        float: right;        //      top: 70px;  
+        z-index: 15;
+        > article {
+            background-color: rgba(115, 115, 115, .7);
+            padding: 5px 5px 10px 5px;
+//            font-style: italic;
+            > div:nth-child(1) {
+                height: 337px;
+            }
+            > div:nth-child(2) {
+                text-align: right;
+                padding-right: 20px;
+                transform: translateY(8px);
             }
         }
+        img {
+            position: relative;
+            top: 10px;
+            right: -15px;
+        }
+        #arrow-wrapper {
 
-        >div:nth-child(2) {
-            text-align: right;
-            padding-right: 20px;
-            transform: translateY(8px);
+            display: inline;
+            position: relative !important;
+            top: 0px;
+            transition: all 1s ease-out;
+
+            &:hover {
+                animation: activeArrow 1.5s;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1;
+            }
+            
+            & > svg {
+                //margin-top: 10px;
+                transform: translateY(8px) rotate(90deg);
+            }
         }
     }
 
-    img {
-        position: relative;
-        top: 10px;
-        right: -15px;
+
+
+@media (max-width: 1100px){
+    #introduction {
+        position: absolute;
+        right: 0px;
+        z-index: 100;
+        bottom: 0px;
+        font-size: 28px;
+    
     }
-
-    #arrow-wrapper {
-
-        display: inline;
-        position: relative;
-        top: 0px;
-        &>svg {
-            //margin-top: 10px;
-            transform: translateY(8px) rotate(90deg);
-        }
-    }
-}
-
-
-
-
-#introduction {
-    position: absolute;
-    right: 0px;
-    z-index: 100;
-    bottom: 0px;
-    font-size: 28px;
-    width: 100%;
-    div {
-        margin-right: 40px;        
-    }
-
-    @media(min-width: 700px) {
-        width: 700px;
-    }
-
-
-
-
 }
